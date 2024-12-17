@@ -13,6 +13,7 @@ def load_data():
     df = pd.read_csv("final_results.csv")
     return df
 
+
 # Custom title with larger font size
 st.markdown("""
     <h1 style='text-align: center; font-size: 3.5em;'>
@@ -32,6 +33,23 @@ df = load_data()
 # Since we have multiple forecasts for each city and multiple dates, let's just show current predictions or a subset.
 # For demo, let's pick the first date available for each city.
 df_unique = df.groupby("Ville").first().reset_index()
+
+# Group the data
+df_agg = df.groupby(["Ville", "Date", "Day_Time"], as_index=False).agg({
+    "Temp_Max": "mean",
+    "Temp_Min": "mean",
+    "Temp_Avg": "mean",
+    "Humidity": "mean",
+    "Rain_Probability": "mean",
+    "Weather": lambda x: x.mode()[0]
+})
+
+# Round Values for visibility
+df_agg["Temp_Max"] = df_agg["Temp_Max"].round(1)
+df_agg["Temp_Min"] = df_agg["Temp_Min"].round(1)
+df_agg["Temp_Avg"] = df_agg["Temp_Avg"].round(1)
+df_agg["Humidity"] = df_agg["Humidity"].round(1)
+df_agg["Rain_Probability"] = df_agg["Rain_Probability"].round(1)
 
 
 # Create a map figure with plotly

@@ -91,6 +91,18 @@ notations = {
     "tornado": -400,
 }
 
+# Create a column for the time of the day
+def time_of_the_day(dt):
+    hour = dt.hour
+    if 6 <= hour < 12:
+        return "Morning"
+    elif 12 <= hour < 18:
+        return "Afternoon"
+    elif 18 <= hour < 22:
+        return "Evening"
+    else:
+        return "Night"
+
 # Boucle pour récupérer les coordonnées et la météo
 for ville in villes:
     params = {"city": ville, "country": "France", "format": "json", "limit": 1}
@@ -108,11 +120,14 @@ for ville in villes:
             if weather_r.status_code == 200:
                 weather_data = weather_r.json()
                 for day in weather_data['list']:
+                    date_hour = pd.to_datetime(day["dt"],unit="s")
                     meteo_resultats.append({
                         "Ville": ville,
                         "Latitude": lat,
                         "Longitude": lon,
-                        "Date": pd.to_datetime(day['dt'], unit='s').strftime('%Y-%m-%d'),
+                        "Date": date_hour.strftime('%Y-%m-%d'),
+                        "Hour": date_hour.hour,
+                        "Day_Time": time_of_the_day(date_hour),
                         "Temp_Max": day['main']['temp_max'],
                         "Temp_Min": day['main']['temp_min'],
                         "Humidity": day['main']['humidity'],
@@ -126,6 +141,11 @@ for ville in villes:
 df_meteo = pd.DataFrame(meteo_resultats)
 df_meteo["Weather_Score"] = df_meteo["Weather"].map(notations)
 df_meteo["Temp_Avg"] = (df_meteo["Temp_Max"] + df_meteo["Temp_Min"]) / 2
+
+
+
+
+# SCRAPING
 
 # Liste pour les hôtels
 hotel_results = []
