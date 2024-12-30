@@ -54,16 +54,18 @@ df_agg["Rain_Probability"] = df_agg["Rain_Probability"].round(1)
 
 # Create a map figure with plotly
 fig = px.density_mapbox(
-    df_unique,
+    df,
     lat="Latitude",
     lon="Longitude",
     z="Temp_Avg",
     mapbox_style="open-street-map",
-    zoom=4,
-    radius=10,
+    animation_frame="Date",
+    zoom=3.5,
+    radius=5,
     center={"lat": 46.603354, "lon": 1.888334},
     color_continuous_scale="Plasma"
 )
+
 
 # Affichage dans Streamlit
 st.plotly_chart(fig, use_container_width=True)
