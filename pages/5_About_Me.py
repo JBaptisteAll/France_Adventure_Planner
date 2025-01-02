@@ -54,17 +54,22 @@ st.markdown("## My Journey")
 # Formation
 st.markdown("### Education & Training")
 st.markdown("""
-I joined a rigorous bootcamp where I dived deep into Python programming, data visualization, and machine learning. 
-The hands-on projects and collaborative environment allowed me to build a solid foundation in data analytics and problem-solving.
+My journey into data began as a self-taught learner. I explored various online platforms, including Coursera, 
+where I completed courses offered by Google and Meta to build my foundational knowledge in data analytics. 📚
+
+To validate my skills and take my expertise to the next level, I enrolled in a bootcamp with **Jedha**. 
+This rigorous program provided me with hands-on experience in Python programming, data visualization, 
+and machine learning, solidifying my capabilities as a future Data Analyst.
 """)
 
 # Compétences Acquises
 st.markdown("### Skills Developed")
 st.markdown("""
-- **Programming**: Proficient in Python, with experience in libraries like Pandas, Matplotlib, and Scikit-learn.
-- **Data Analysis**: Expertise in cleaning, exploring, and visualizing data to uncover insights.
-- **Machine Learning**: Knowledge of building predictive models and evaluating their performance.
-- **Tools**: Familiarity with tools like Jupyter Notebook, Streamlit, and Git for version control.
+- **Programming**: Proficient in Python, with experience in libraries like Pandas, Matplotlib, and plotly.
+- **Data Analysis**: Expertise in cleaning, exploring, and visualizing data to uncover actionable insights.
+- **Machine Learning**: Knowledge of building and evaluating predictive models using real-world datasets.
+- **Tools**: Familiarity with tools like Jupyter Notebook, Streamlit, Git, and SQL for managing and analyzing data.
+- **Soft Skills**: Strong problem-solving, collaboration, and communication skills developed through projects and teamwork.
 """)
 
 # Projets Réalisés

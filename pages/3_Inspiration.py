@@ -84,7 +84,7 @@ if method == "Filter by Preferences":
         st.markdown("### No destinations match your criteria. Try adjusting the filters!")
 
 # Option 2 : Meilleur Weather_Score et Température
-elif method == "City with Best Weather and Temperature":
+elif method == "City with Best Weather Score and Temperature":
     best_city = df.sort_values(by=["Weather_Score", "Temp_Avg"], ascending=False).iloc[0]
     st.markdown(f"### Best Destination: **{best_city['Ville']}**")
     st.markdown(f"""
