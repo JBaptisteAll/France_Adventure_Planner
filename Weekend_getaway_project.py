@@ -20,7 +20,11 @@ api_key = "YOUR_API_KEY_HERE"
 villes = [
     "Bourg d'Oisans", "Le Périer", "La Chapelle-en-Valgaudémar", "Vallouise",
     "Ailefroide", "Monêtier-les-Bains", "La Grave", "Saint-Christophe-en-Oisans",
-    "Chamonix", "Aragnouet", "Marseille", "Nice", "Bayonne", "Saint Malo"
+    "Chamonix", "Les Houches", "Saint-Gervais-les-Bains"
+    "Aragnouet", 
+    "Marseille", "Nice", 
+    "Bayonne", 
+    "Saint Malo"
 ]
 
 # URL API Nominatim (OpenStreetMap) pour récupérer les coordonnées

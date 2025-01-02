@@ -13,29 +13,29 @@ def load_and_prepare_data():
     
     # Agréger les données par Ville, Date et Moment de la journée
     df_agg = df.groupby(["Ville", "Date", "Latitude", "Longitude"], as_index=False).agg({
-        "Temp_Max": "max",  # Récupérer la température maximale
-        "Temp_Min": "min",  # Récupérer la température minimale
-        "Temp_Avg": "mean",  # Calculer la moyenne des températures
+        "Temp_Max": "max",
+        "Temp_Min": "min",
+        "Temp_Avg": "mean",
         "Humidity": "mean",
         "Rain_Probability": "mean",
-        "Weather": lambda x: x.mode()[0]  # Prendre la météo la plus fréquente
+        "Weather": lambda x: x.mode()[0]
     })
     
-    # Arrondir les valeurs numériques pour plus de lisibilité
+    # Arrondir les valeurs numériques
     df_agg["Temp_Max"] = df_agg["Temp_Max"].round(1)
     df_agg["Temp_Min"] = df_agg["Temp_Min"].round(1)
     df_agg["Temp_Avg"] = df_agg["Temp_Avg"].round(1)
     df_agg["Humidity"] = df_agg["Humidity"].round(1)
     df_agg["Rain_Probability"] = df_agg["Rain_Probability"].round(2)
     
-    return df_agg
+    return df
 
 # Charger les données
-df_agg = load_and_prepare_data()
+df = load_and_prepare_data()
 
 # Exemple de treks
 treks = {
-    "Les Ecrins": ["Bourg d'Oisans", "Vallouise", "La Grave", "Le Périer"],
+    "Les Ecrins": ["Bourg d'Oisans", "Le Périer", "La Chapelle-en-Valgaudémar", "Vallouise", "Ailefroide", "Monêtier-les-Bains", "La Grave", "Saint-Christophe-en-Oisans"],
     "Mont-Blanc": ["Chamonix", "Les Houches", "Saint-Gervais-les-Bains"],
     "Pyrénées": ["Aragnouet"],
     "Jura": []
@@ -51,10 +51,10 @@ chosen_trek = st.selectbox("Choose a Destination :", list(treks.keys()))
 # Sélectionner les villes associées à cet itinéraire
 selected_cities = treks[chosen_trek]
 st.markdown(f"## Forecast for the itinerary **{chosen_trek}**")
-st.markdown(f"### Cities Involved    : {', '.join(selected_cities)}")
+st.markdown(f"Cities Involved    : {', '.join(selected_cities)}")
 
 # Filtrer les données pour les villes sélectionnées
-df_filtered = df_agg[df_agg["Ville"].isin(selected_cities)]
+df_filtered = df[df["Ville"].isin(selected_cities)]
 
 # Carte interactive
 if not df_filtered.empty:
@@ -79,7 +79,6 @@ if not df_filtered.empty:
     
     st.plotly_chart(fig, use_container_width=True)
 
-# Affichage des données par ville (regroupées par jour)
 if not df_filtered.empty:
     st.markdown("### Daily Weather Highlights by City")
     for city in selected_cities:
@@ -100,10 +99,24 @@ if not df_filtered.empty:
             city_grouped["Humidity"] = city_grouped["Humidity"].round(1)
             city_grouped["Rain_Probability"] = city_grouped["Rain_Probability"].round(2)
             
-            st.markdown(f"#### Forecast for **{city}**")
+            # Afficher les données météo regroupées
+            st.markdown(f"### Forecast for **{city}**")
             st.dataframe(city_grouped[[
                 "Date", "Temp_Max", "Temp_Min", "Temp_Avg", "Humidity", "Rain_Probability", "Weather"
             ]])
+            
+            # Ajouter les informations des hôtels
+            st.markdown(f"#### Hotels in {city}")
+            for i in range(1, 6):  # Suppose qu'il y a jusqu'à 5 hôtels
+                hotel_name_col = f"Hotel_{i}_Name"
+                hotel_link_col = f"Hotel_{i}_Link"
+                
+                if hotel_name_col in city_data.columns and hotel_link_col in city_data.columns:
+                    hotel_name = city_data[hotel_name_col].iloc[0]
+                    hotel_link = city_data[hotel_link_col].iloc[0]
+                    
+                    if pd.notna(hotel_name) and pd.notna(hotel_link):
+                        st.markdown(f"- [{hotel_name}]({hotel_link})")
         else:
             st.markdown(f"No data available for **{city}**.")
 else:
