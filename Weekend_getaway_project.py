@@ -14,7 +14,7 @@ if asyncio.get_event_loop_policy().__class__.__name__ == 'WindowsProactorEventLo
     asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
 
 # API Key OpenWeatherMap
-api_key = "174c4b974005fc385a6b7d5de90ad907"
+api_key = "YOUR_API_KEY_HERE"
 
 # Liste des villes
 villes = [
