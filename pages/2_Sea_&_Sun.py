@@ -34,10 +34,10 @@ def load_and_prepare_data():
 df = load_and_prepare_data()
 
 regions = {
-    "Méditerranée": ["Marseille", "Nice"],
-    "Aquitaine": ["Bayonne"],
-    "Bretagne": ["Saint Malo"], 
-    "Nord": []
+    "Mediterranean Coast": ["Nice", "Cannes", "Antibes", "Saint-Tropez", "Menton", "Monaco", "Juan-les-Pins", "Marseille", "Cassis", "Bandol", "Hyères", "Sanary-sur-Mer", "Montpellier", "Sète", "Agde", "Cap d’Agde", "Gruissan", "Narbonne", "Palavas-les-Flots", "Collioure", "Port-Vendres", "Banyuls-sur-Mer", "Argelès-sur-Mer"],
+    "Atlantic Coast": ["Hendaye", "Saint-Jean-de-Luz", "Biarritz", "Anglet", "Bayonne", "Hossegor", "Capbreton", "Seignosse", "Biscarrosse", "Mimizan", "Arcachon", "Lège-Cap-Ferret", "Lacanau", "Soulac-sur-Mer", "Les Sables-d'Olonne", "Saint-Jean-de-Monts", "Saint-Gilles-Croix-de-Vie", "La Tranche-sur-Mer", "Île de Noirmoutier", "Île d'Yeu", "La Rochelle", "Île de Ré", "Île d'Oléron", "Royan", "Châtelaillon-Plage", "Rochefort"],
+    "Bretagne/Normandie": ["Vannes", "Lorient", "Carnac", "Quiberon", "La Baule", "Pornic", "Saint-Nazaire", "Pornic", "Préfailles", "Saint-Brévin-les-Pins", "Saint-Malo", "Dinard", "Cancale", "Deauville", "Trouville-sur-Mer", "Cabourg", "Honfleur", "Étretat", "Fécamp", "Dieppe", "Le Havre"], 
+    "English Channel Coast": ["Calais", "Boulogne-sur-Mer", "Wimereux", "Wissant", "Le Touquet", "Berck-sur-Mer", "Saint-Valery-sur-Somme", "Le Crotoy", "Cayeux-sur-Mer", "Mers-les-Bains"]
 }
 
 # Titre de la page
@@ -70,7 +70,7 @@ if not df_filtered.empty:
         z="Temp_Avg",
         mapbox_style="open-street-map",
         animation_frame="Date",
-        zoom=6,  # Zoom ajusté
+        zoom=5,  # Zoom ajusté
         radius=10,
         center={"lat": center_lat, "lon": center_lon},
         color_continuous_scale="Plasma"

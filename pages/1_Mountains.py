@@ -35,10 +35,43 @@ df = load_and_prepare_data()
 
 # Exemple de treks
 treks = {
-    "Les Ecrins": ["Bourg d'Oisans", "Le Périer", "La Chapelle-en-Valgaudémar", "Vallouise", "Ailefroide", "Monêtier-les-Bains", "La Grave", "Saint-Christophe-en-Oisans"],
-    "Mont-Blanc": ["Chamonix", "Les Houches", "Saint-Gervais-les-Bains"],
-    "Pyrénées": ["Aragnouet"],
-    "Jura": []
+    "Alpes du Nord (Mont-Blanc)": ["Chamonix", "Les Houches", 
+                                   "Saint-Gervais-les-Bains", "Servoz", "Vallorcine", 
+                                   "Argentière", "Combloux", "Megève", 
+                                   "Les Contamines-Montjoie", "Cordon", "Domancy", 
+                                   "Demi-Quartier", "Praz-sur-Arly", 
+                                   "Sixt-Fer-à-Cheval"],
+    "Alpes du Centre (Vanoise, Écrins partiels, Beaufortain)": ["Bourg d'Oisans", "Le Périer", 
+                                                                "La Chapelle-en-Valgaudémar", "Vallouise", 
+                                                                "Ailefroide", "Monêtier-les-Bains", "La Grave", 
+                                                                "Saint-Christophe-en-Oisans", "Val-d'Isère", 
+                                                                "Tignes", "Pralognan-la-Vanoise", "Termignon", 
+                                                                "Modane", "Bonneval-sur-Arc", "Aussois", 
+                                                                "Lanslebourg-Mont-Cenis", "Bessans", "Beaufort", 
+                                                                "Arêches", "Les Saisies", "Hauteluce", 
+                                                                "Villard-sur-Doron", "Queige", 
+                                                                "Saint-Pierre-de-Chartreuse", "Grenoble", 
+                                                                "Le Sappey-en-Chartreuse", "Saint-Laurent-du-Pont", 
+                                                                "Entremont-le-Vieux"],
+    "Alpes du Sud (Écrins, Queyras, Mercantour)": ["Saint-Martin-Vésubie", "Isola", "Barcelonnette", 
+                                                   "Tende", "Valdeblore", "La Brigue", "Breil-sur-Roya", 
+                                                   "Rimplas", "Saint-Véran", "Abriès", "Ceillac", "Guillestre", 
+                                                   "Molines-en-Queyras", "Château-Ville-Vieille", "Aiguilles", 
+                                                   "Saint-Jean-de-Maurienne", "Valloire", "Lanslebourg-Mont-Cenis", 
+                                                   "Termignon", "Albiez-Montrond", "Aussois", "Bessans", 
+                                                   "Saint-Sorlin-d'Arves", "Saint-Colomban-des-Villards"],
+    "Pyrénées Occidentales (Ouest)": ["Gourette", "Eaux-Bonnes", "Artouste", "Arudy", 
+                                      "Oloron-Sainte-Marie"],
+    "Pyrénées Centrales": ["Saint-Lary-Soulan", "Luz-Saint-Sauveur", "Cauterets", 
+                           "Gavarnie", "Barèges", "Bagnères-de-Bigorre", 
+                           "Piau-Engaly", "Campan", "Les Angles", "Portet-d'Aspet",
+                           "Luchon (Bagnères-de-Luchon)", "Peyragudes"],
+    "Pyrénées Orientales (Est)": ["Font-Romeu", "Mont-Louis", 
+                                  "Villefranche-de-Conflent", "Ax-les-Thermes",
+                                  "Prats-de-Mollo-la-Preste"],
+    "Jura": ["Les Rousses", "Morbier", "Saint-Claude", "Lons-le-Saunier", 
+             "Arbois", "Baume-les-Messieurs", "Salins-les-Bains", "Métabief", 
+             "Clairvaux-les-Lacs", "Lamoura", "Château-Chalon", "Nantua"]
 }
 
 # Titre de la page
@@ -71,7 +104,7 @@ if not df_filtered.empty:
         z="Temp_Avg",
         mapbox_style="open-street-map",
         animation_frame="Date",
-        zoom=6,  # Zoom ajusté
+        zoom=5,  # Zoom ajusté
         radius=10,
         center={"lat": center_lat, "lon": center_lon},
         color_continuous_scale="Plasma"

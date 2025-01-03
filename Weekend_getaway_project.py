@@ -14,17 +14,75 @@ if asyncio.get_event_loop_policy().__class__.__name__ == 'WindowsProactorEventLo
     asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
 
 # API Key OpenWeatherMap
-api_key = "YOUR_API_KEY_HERE"
+api_key = "174c4b974005fc385a6b7d5de90ad907"
 
 # Liste des villes
 villes = [
+    #Alpes
+    #Les Ecrins
     "Bourg d'Oisans", "Le Périer", "La Chapelle-en-Valgaudémar", "Vallouise",
     "Ailefroide", "Monêtier-les-Bains", "La Grave", "Saint-Christophe-en-Oisans",
-    "Chamonix", "Les Houches", "Saint-Gervais-les-Bains"
-    "Aragnouet", 
-    "Marseille", "Nice", 
-    "Bayonne", 
-    "Saint Malo"
+    #Mt-Blanc
+    "Chamonix", "Les Houches", "Saint-Gervais-les-Bains", 
+    "Servoz", "Vallorcine", "Argentière", "Combloux", "Megève", 
+    "Les Contamines-Montjoie", "Cordon", "Domancy", "Demi-Quartier", 
+    "Praz-sur-Arly", "Sixt-Fer-à-Cheval", 
+    #Vanoise
+    "Val-d'Isère", "Tignes", "Pralognan-la-Vanoise", "Termignon", "Modane", 
+    "Bonneval-sur-Arc", "Aussois", "Lanslebourg-Mont-Cenis", "Bessans",
+    #Beaufortain
+    "Beaufort", "Arêches", "Les Saisies", "Hauteluce", "Villard-sur-Doron", 
+    "Queige",
+    #Chartreuse
+    "Saint-Pierre-de-Chartreuse", "Grenoble", "Le Sappey-en-Chartreuse",
+    "Saint-Laurent-du-Pont", "Entremont-le-Vieux",
+    #Mercantour
+    "Saint-Martin-Vésubie", "Isola", "Barcelonnette", "Tende", "Valdeblore",
+    "La Brigue", "Breil-sur-Roya", "Rimplas",
+    #Queyras
+    "Saint-Véran", "Abriès", "Ceillac", "Guillestre", "Molines-en-Queyras", 
+    "Château-Ville-Vieille", "Aiguilles",
+    #Maurienne
+    "Saint-Jean-de-Maurienne", "Valloire", "Lanslebourg-Mont-Cenis", "Termignon", 
+    "Albiez-Montrond", "Aussois", "Bessans", "Saint-Sorlin-d'Arves", 
+    "Saint-Colomban-des-Villards",
+    #Pyrénées
+    #Pyrénées Occidentales (Ouest)
+    "Gourette", "Eaux-Bonnes", "Artouste", "Arudy", "Oloron-Sainte-Marie", 
+    "Portet-d'Aspet",
+    #Pyrénées Centrales
+    "Saint-Lary-Soulan", "Luz-Saint-Sauveur", "Cauterets", "Gavarnie", "Barèges", 
+    "Bagnères-de-Bigorre", "Piau-Engaly", "Campan", "Ax-les-Thermes", 
+    "Luchon (Bagnères-de-Luchon)", "Peyragudes",
+    #Pyrénées Orientales (Est)
+    "Font-Romeu", "Les Angles", "Mont-Louis", "Villefranche-de-Conflent", 
+    "Prats-de-Mollo-la-Preste",
+    #Jura
+    "Les Rousses", "Morbier", "Saint-Claude", "Lons-le-Saunier", "Arbois", 
+    "Baume-les-Messieurs", "Salins-les-Bains", "Métabief", "Clairvaux-les-Lacs", 
+    "Lamoura", "Château-Chalon", "Nantua",   
+    #Mediterranée
+    "Nice", "Cannes", "Antibes", "Saint-Tropez", "Menton", "Monaco", 
+    "Juan-les-Pins", "Marseille", "Cassis", "Bandol", "Hyères", 
+    "Sanary-sur-Mer", "Montpellier", "Sète", "Agde", "Cap d’Agde", "Gruissan", 
+    "Narbonne", "Palavas-les-Flots", "Collioure", "Port-Vendres", "Banyuls-sur-Mer",
+    "Argelès-sur-Mer",
+    #Littoral Atlantique
+    "Hendaye", "Saint-Jean-de-Luz", "Biarritz", "Anglet", "Bayonne", "Hossegor", 
+    "Capbreton", "Seignosse", "Biscarrosse", "Mimizan", "Arcachon", 
+    "Lège-Cap-Ferret", "Lacanau", "Soulac-sur-Mer", "Les Sables-d'Olonne", 
+    "Saint-Jean-de-Monts", "Saint-Gilles-Croix-de-Vie", "La Tranche-sur-Mer", 
+    "Île de Noirmoutier", "Île d'Yeu", "La Rochelle", "Île de Ré", "Île d'Oléron", 
+    "Royan", "Châtelaillon-Plage", "Rochefort", 
+    #Bretagne/Normandie
+    "Vannes", "Lorient", "Carnac", "Quiberon", "La Baule", "Pornic", "Saint-Nazaire",
+    "Pornic", "Préfailles", "Saint-Brévin-les-Pins", "Saint-Malo", "Dinard", 
+    "Cancale", "Deauville", "Trouville-sur-Mer", "Cabourg", "Honfleur", "Étretat", 
+    "Fécamp", "Dieppe", "Le Havre",
+    #Littoral de la Manche
+    "Calais", "Boulogne-sur-Mer", "Wimereux", "Wissant", "Le Touquet", 
+    "Berck-sur-Mer", "Saint-Valery-sur-Somme", "Le Crotoy", "Cayeux-sur-Mer", 
+    "Mers-les-Bains"
 ]
 
 # URL API Nominatim (OpenStreetMap) pour récupérer les coordonnées
