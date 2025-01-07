@@ -1,10 +1,30 @@
 import streamlit as st
 
+from forms.contact import contact_form
 
-# Titre Principal
-st.markdown("Welcome! Here's a little insight into who I am.")
+@st.dialog("Contact Me")
+def show_contact_form():
+    contact_form()
+
+# Création de colonnes
+col1, col2 = st.columns(2, gap="small", vertical_alignment="center")  # Ajuste les proportions des colonnes (1:2 ici)
+
+# Contenu de la colonne de gauche
+with col1:
+    st.image("Assets\JB.png", width=150)  # Affiche un logo
+    
+
+# Contenu de la colonne de droite
+with col2:
+    st.markdown("""
+        ### Contact me 📩""")
+    
+    if st.button("Contact Me"):
+        show_contact_form()
+
 
 # Section : Présentation Personnelle
+st.markdown("""Welcome, Here's a little insight into who I am!""")
 st.markdown("## About Me")
 st.markdown("""
 Hi, I'm Jean-Baptiste! I'm a passionate learner currently diving deep into the world of data analysis and programming. 
@@ -21,7 +41,7 @@ st.markdown("""
 My journey into data began as a self-taught learner. I explored various online platforms, including Coursera, 
 where I completed courses offered by Google and Meta to build my foundational knowledge in data analytics. 📚
 
-To validate my skills and take my expertise to the next level, I enrolled in a bootcamp with **Jedha**. 
+To validate my skills and take my expertise to the next level, I enrolled in a bootcamp with [**Jedha**](https://www.jedha.co/). 
 This rigorous program provided me with hands-on experience in Python programming, data visualization, 
 and machine learning, solidifying my capabilities as a future Data Analyst.
 """)
@@ -68,3 +88,6 @@ Feel free to reach out to me on:
 - [GitHub](https://github.com/JBaptisteAll)  
 Or send me an email at **your_email@example.com**.
 """)
+
+
+
