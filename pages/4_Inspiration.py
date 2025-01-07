@@ -1,0 +1,147 @@
+import streamlit as st
+import pandas as pd
+import plotly.express as px
+import random
+
+
+# Fonction pour charger et préparer les données
+@st.cache_data
+def load_data():
+    return pd.read_csv("final_results.csv")
+
+# Charger les données
+df = load_data()
+
+# Titre de la page
+st.markdown("# Inspiration")
+st.markdown("### Choose your inspiration method and find your next adventure!")
+
+# Choix de la méthode
+method = st.radio(
+    "How would you like to be inspired?",
+    (
+        "Filter by Preferences",
+        "City with Best Weather Score and Temperature",
+        "Random City"
+    )
+)
+
+# Option 1 : Filtrage Personnalisé
+if method == "Filter by Preferences":
+    st.sidebar.markdown("### Customize Your Search")
+    temp_min = st.sidebar.slider("Minimum Temperature (°C)", -10, 40, 10)
+    temp_max = st.sidebar.slider("Maximum Temperature (°C)", -10, 40, 25)
+    rain_max = st.sidebar.slider("Maximum Rain Probability (%)", 0, 100, 50)
+
+    # Filtrer les données
+    filtered_df = df[
+        (df["Temp_Avg"] >= temp_min) &
+        (df["Temp_Avg"] <= temp_max) &
+        (df["Rain_Probability"] <= rain_max)
+    ]
+
+    # Trouver la meilleure ville pour chaque jour
+    best_cities_per_day = (
+        filtered_df.groupby("Date")
+        .apply(lambda x: x.sort_values(by="Weather_Score", ascending=False).iloc[0])
+        .reset_index(drop=True)
+    )
+
+    if not best_cities_per_day.empty:
+        st.markdown("### Top Recommendations Based on Your Preferences")
+
+        # Créer une colonne avec des liens cliquables pour l'hôtel
+        best_cities_per_day["Hotel"] = best_cities_per_day.apply(
+            lambda row: f"<a href='{row['Hotel_1_Link']}' target='_blank'>{row['Hotel_1_Name']}</a>",
+            axis=1
+        )
+
+        # Afficher le tableau avec le HTML activé
+        st.markdown(
+            best_cities_per_day[["Date", "Ville", "Temp_Avg", "Weather", "Rain_Probability", "Hotel"]]
+            .to_html(escape=False, index=False),
+            unsafe_allow_html=True
+        )
+
+        # Carte interactive
+        st.markdown("### Explore on the Map")
+        fig = px.scatter_mapbox(
+            best_cities_per_day,
+            lat="Latitude",
+            lon="Longitude",
+            hover_name="Ville",
+            hover_data=["Temp_Avg", "Weather", "Rain_Probability"],
+            mapbox_style="open-street-map",
+            zoom=5
+        )
+        # Agrandir les points sur la carte
+        fig.update_traces(marker=dict(size=15))  # Taille fixe pour tous les points
+        fig.update_traces(marker=dict(color='blue'))
+        st.plotly_chart(fig, use_container_width=True)
+    else:
+        st.markdown("### No destinations match your criteria. Try adjusting the filters!")
+
+# Option 2 : Meilleur Weather_Score et Température
+elif method == "City with Best Weather Score and Temperature":
+    best_city = df.sort_values(by=["Weather_Score", "Temp_Avg"], ascending=False).iloc[0]
+    st.markdown(f"### Best Destination: **{best_city['Ville']}**")
+    st.markdown(f"""
+        - **Date**: {best_city['Date']}
+        - **Average Temperature**: {best_city['Temp_Avg']}°C
+        - **Weather**: {best_city['Weather']}
+        - **Rain Probability**: {best_city['Rain_Probability']}%
+        - **Hotel**: [{best_city['Hotel_1_Name']}]({best_city['Hotel_1_Link']})
+    """)
+
+    # Carte pour cette ville
+    fig = px.scatter_mapbox(
+        df[df["Ville"] == best_city["Ville"]],
+        lat="Latitude",
+        lon="Longitude",
+        hover_name="Ville",
+        mapbox_style="open-street-map",
+        zoom=6,
+    )
+    # Agrandir les points sur la carte
+    fig.update_traces(marker=dict(size=15))  # Taille fixe pour tous les points
+    fig.update_traces(marker=dict(color='blue'))
+    st.plotly_chart(fig, use_container_width=True)
+
+# Option 3 : Ville au Hasard
+elif method == "Random City":
+    random_city = random.choice(df["Ville"].unique())
+    city_data = df[df["Ville"] == random_city]
+
+    # Regrouper par jour pour afficher une ligne par jour
+    city_grouped_by_day = city_data.groupby("Date").first().reset_index()
+
+    # Créer une colonne avec des liens cliquables pour l'hôtel
+    city_grouped_by_day["Hotel"] = city_grouped_by_day.apply(
+        lambda row: f"<a href='{row['Hotel_1_Link']}' target='_blank'>{row['Hotel_1_Name']}</a>",
+        axis=1
+    )
+
+    st.markdown(f"### Random Destination: **{random_city}**")
+    st.markdown("#### Weather Highlights")
+
+    # Afficher le tableau avec le HTML activé
+    st.markdown(
+        city_grouped_by_day[["Date", "Temp_Avg", "Weather", "Rain_Probability", "Hotel"]]
+        .to_html(escape=False, index=False),
+        unsafe_allow_html=True
+    )
+
+    # Carte pour cette ville
+    st.markdown("### Explore on the Map")
+    fig = px.scatter_mapbox(
+        city_grouped_by_day,
+        lat="Latitude",
+        lon="Longitude",
+        hover_name="Ville",
+        mapbox_style="open-street-map",
+        zoom=6
+    )
+    # Agrandir les points sur la carte
+    fig.update_traces(marker=dict(size=15))  # Taille fixe pour tous les points
+    fig.update_traces(marker=dict(color='blue'))
+    st.plotly_chart(fig, use_container_width=True)
