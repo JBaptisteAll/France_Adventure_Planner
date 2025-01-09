@@ -3,13 +3,12 @@ import pandas as pd
 import plotly.express as px
 
 
-# Fonction pour charger et préparer les données
+# Fonction pour charger les données
 @st.cache_data
 def load_and_prepare_data():
-    # Charger les données depuis le fichier CSV
     df = pd.read_csv("final_results.csv")
     
-    # Agréger les données par Ville, Date et Moment de la journée
+    # Agréger les données
     df_agg = df.groupby(["Ville", "Date", "Latitude", "Longitude"], as_index=False).agg({
         "Temp_Max": "max",
         "Temp_Min": "min",
@@ -19,7 +18,7 @@ def load_and_prepare_data():
         "Weather": lambda x: x.mode()[0]
     })
     
-    # Arrondir les valeurs numériques
+    # Arrondir
     df_agg["Temp_Max"] = df_agg["Temp_Max"].round(1)
     df_agg["Temp_Min"] = df_agg["Temp_Min"].round(1)
     df_agg["Temp_Avg"] = df_agg["Temp_Avg"].round(1)
@@ -32,20 +31,38 @@ def load_and_prepare_data():
 df = load_and_prepare_data()
 
 regions = {
-    "Mediterranean Coast": ["Nice", "Cannes", "Antibes", "Saint-Tropez", "Menton", "Monaco", "Juan-les-Pins", "Marseille", "Cassis", "Bandol", "Hyères", "Sanary-sur-Mer", "Montpellier", "Sète", "Agde", "Cap d’Agde", "Gruissan", "Narbonne", "Palavas-les-Flots", "Collioure", "Port-Vendres", "Banyuls-sur-Mer", "Argelès-sur-Mer"],
-    "Atlantic Coast": ["Hendaye", "Saint-Jean-de-Luz", "Biarritz", "Anglet", "Bayonne", "Hossegor", "Capbreton", "Seignosse", "Biscarrosse", "Mimizan", "Arcachon", "Lège-Cap-Ferret", "Lacanau", "Soulac-sur-Mer", "Les Sables-d'Olonne", "Saint-Jean-de-Monts", "Saint-Gilles-Croix-de-Vie", "La Tranche-sur-Mer", "Île de Noirmoutier", "Île d'Yeu", "La Rochelle", "Île de Ré", "Île d'Oléron", "Royan", "Châtelaillon-Plage", "Rochefort"],
-    "Bretagne/Normandie": ["Vannes", "Lorient", "Carnac", "Quiberon", "La Baule", "Pornic", "Saint-Nazaire", "Pornic", "Préfailles", "Saint-Brévin-les-Pins", "Saint-Malo", "Dinard", "Cancale", "Deauville", "Trouville-sur-Mer", "Cabourg", "Honfleur", "Étretat", "Fécamp", "Dieppe", "Le Havre"], 
-    "English Channel Coast": ["Calais", "Boulogne-sur-Mer", "Wimereux", "Wissant", "Le Touquet", "Berck-sur-Mer", "Saint-Valery-sur-Somme", "Le Crotoy", "Cayeux-sur-Mer", "Mers-les-Bains"]
+    "Mediterranean Coast": ["Nice", "Cannes", "Antibes", "Saint-Tropez", "Menton", 
+                            "Juan-les-Pins", "Marseille", "Cassis", "Bandol", 
+                            "Hyères", "Sanary-sur-Mer", "Montpellier", "Sète", 
+                            "Agde", "Cap d’Agde", "Gruissan", "Narbonne", 
+                            "Palavas-les-Flots", "Collioure", "Port-Vendres", 
+                            "Banyuls-sur-Mer", "Argelès-sur-Mer"],
+    "Atlantic Coast": ["Hendaye", "Saint-Jean-de-Luz", "Biarritz", "Anglet", 
+                       "Bayonne", "Hossegor", "Capbreton", "Seignosse", 
+                       "Biscarrosse", "Mimizan", "Arcachon", "Lège-Cap-Ferret", 
+                       "Lacanau", "Soulac-sur-Mer", "Les Sables-d'Olonne", 
+                       "Saint-Jean-de-Monts", "Saint-Gilles-Croix-de-Vie", 
+                       "La Tranche-sur-Mer", "Île de Noirmoutier", "Île d'Yeu", 
+                       "La Rochelle", "Île de Ré", "Île d'Oléron", "Royan", 
+                       "Châtelaillon-Plage", "Rochefort"],
+    "Bretagne/Normandie": ["Vannes", "Lorient", "Carnac", "Quiberon", "La Baule", 
+                           "Pornic", "Saint-Nazaire", "Pornic", "Préfailles", 
+                           "Saint-Brévin-les-Pins", "Saint-Malo", "Dinard", 
+                           "Cancale", "Deauville", "Trouville-sur-Mer", "Cabourg", 
+                           "Honfleur", "Étretat", "Fécamp", "Dieppe", "Le Havre"], 
+    "English Channel Coast": ["Calais", "Boulogne-sur-Mer", "Wimereux", "Wissant", 
+                              "Le Touquet", "Berck-sur-Mer", "Saint-Valery-sur-Somme", 
+                              "Le Crotoy", "Cayeux-sur-Mer", "Mers-les-Bains"]
 }
 
-# Titre de la page
+# Titre
 st.markdown("# Sea & Sun")
 st.markdown("### Choose a coastal region and see weather forecasts and hotel suggestions for famous beach destinations.")
 
 # Sélection de l'itinéraire
 chosen_region = st.selectbox("Choose a Coastal Region", list(regions.keys()))
 
-# Sélectionner les villes associées à cet itinéraire
+# Sélectionner les villes associées
 selected_cities = regions[chosen_region]
 st.markdown(f"## Forecast for the itinerary **{chosen_region}**")
 st.markdown(f"Cities Involved: {', '.join(selected_cities)}")
@@ -53,68 +70,109 @@ st.markdown(f"Cities Involved: {', '.join(selected_cities)}")
 # Filtrer les données pour les villes sélectionnées
 df_filtered = df[df["Ville"].isin(selected_cities)]
 
-# Carte interactive
+# Carte
 if not df_filtered.empty:
         
-    # Centrer la carte sur les coordonnées moyennes des villes sélectionnées
+    # Centrer la carte
     center_lat = df_filtered["Latitude"].mean()
     center_lon = df_filtered["Longitude"].mean()
     
-    # Créer la carte avec Plotly
+    # Carte
     fig = px.density_mapbox(
         df_filtered,
         lat="Latitude",
         lon="Longitude",
-        z="Temp_Avg",
+        hover_name="Ville",
         mapbox_style="open-street-map",
         animation_frame="Date",
-        zoom=5,  # Zoom ajusté
-        radius=10,
+        z="Temp_Avg",
+        zoom=5,
+        radius=7,
         center={"lat": center_lat, "lon": center_lon},
-        color_continuous_scale="Plasma"
+        color_continuous_scale="Plasma",
+        hover_data=["Temp_Max", "Temp_Min", "Humidity", "Weather"]
     )
     
     st.plotly_chart(fig, use_container_width=True)
 
-if not df_filtered.empty:
-    st.markdown("### Daily Weather Highlights by City")
-    for city in selected_cities:
-        city_data = df_filtered[df_filtered["Ville"] == city]
-        if not city_data.empty:
-            # Regrouper par jour
-            city_grouped = city_data.groupby(["Date"], as_index=False).agg({
-                "Temp_Max": "max",  # Récupérer la température maximale
-                "Temp_Min": "min",  # Récupérer la température minimale
-                "Temp_Avg": "mean",  # Calculer la moyenne des températures
-                "Humidity": "mean",
-                "Rain_Probability": "max",
-                "Weather": lambda x: x.mode()[0]  # Météo la plus fréquente
-            })
-            city_grouped["Temp_Max"] = city_grouped["Temp_Max"].round(1)
-            city_grouped["Temp_Min"] = city_grouped["Temp_Min"].round(1)
-            city_grouped["Temp_Avg"] = city_grouped["Temp_Avg"].round(1)
-            city_grouped["Humidity"] = city_grouped["Humidity"].round(1)
-            city_grouped["Rain_Probability"] = city_grouped["Rain_Probability"].round(2)
-            
-            # Afficher les données météo regroupées
-            st.markdown(f"### Forecast for **{city}**")
-            st.dataframe(city_grouped[[
-                "Date", "Temp_Max", "Temp_Min", "Temp_Avg", "Humidity", "Rain_Probability", "Weather"
-            ]])
-            
-            # Ajouter les informations des hôtels
-            st.markdown(f"#### Hotels in {city}")
-            for i in range(1, 6):  # Suppose qu'il y a jusqu'à 5 hôtels
-                hotel_name_col = f"Hotel_{i}_Name"
-                hotel_link_col = f"Hotel_{i}_Link"
-                
-                if hotel_name_col in city_data.columns and hotel_link_col in city_data.columns:
-                    hotel_name = city_data[hotel_name_col].iloc[0]
-                    hotel_link = city_data[hotel_link_col].iloc[0]
-                    
-                    if pd.notna(hotel_name) and pd.notna(hotel_link):
-                        st.markdown(f"- [{hotel_name}]({hotel_link})")
-        else:
-            st.markdown(f"No data available for **{city}**.")
+# Titre
+st.title("Explore Weather and Links 🏙️🚆")
+# Filtrer les villes en fonction de la région
+selected_cities = regions[chosen_region]
+
+# Bouton pour afficher les informations d'une seule ville
+selected_city = st.selectbox("Choose a city :", selected_cities)
+
+# Filtrer les données pour la ville sélectionnée
+city_data = df[df["Ville"] == selected_city]
+if not city_data.empty:
+    # Regrouper les données
+    city_grouped = city_data.groupby(["Date"], as_index=False).agg({
+        "Temp_Max": "max",
+        "Temp_Min": "min", 
+        "Temp_Avg": "mean", 
+        "Humidity": "mean",
+        "Rain_Probability": "max",
+        "Weather": lambda x: x.mode()[0]  
+    })
+
+    # Arrondir 
+    city_grouped["Temp_Max"] = city_grouped["Temp_Max"].round(1)
+    city_grouped["Temp_Min"] = city_grouped["Temp_Min"].round(1)
+    city_grouped["Temp_Avg"] = city_grouped["Temp_Avg"].round(1)
+    city_grouped["Humidity"] = city_grouped["Humidity"].round(1)
+    city_grouped["Rain_Probability"] = city_grouped["Rain_Probability"].round(2)
+
+    # Afficher les prévisions météo
+    st.markdown(f"### Forecast for **{selected_city}**")
+    st.dataframe(city_grouped[[
+        "Date", "Temp_Max", "Temp_Min", "Temp_Avg", "Humidity", "Rain_Probability", "Weather"
+    ]])
+
+    # Afficher les trains
+    train_link = city_data.iloc[0]["Train"]
+    st.markdown(f"[🚄 See Trains for {selected_city}]({train_link})", unsafe_allow_html=True)
+
+    # Afficher les hôtels
+    st.markdown(f"#### Hotels in {selected_city}")
+    for i in range(1, 6):
+        hotel_name_col = f"Hotel_{i}_Name"
+        hotel_link_col = f"Hotel_{i}_Link"
+
+        if hotel_name_col in city_data.columns and hotel_link_col in city_data.columns:
+            hotel_name = city_data[hotel_name_col].iloc[0]
+            hotel_link = city_data[hotel_link_col].iloc[0]
+
+            if pd.notna(hotel_name) and pd.notna(hotel_link):
+                st.markdown(f"- [{hotel_name}]({hotel_link})")
 else:
-    st.write("No data available for this itinerary.")
+    st.markdown(f"No data available for **{selected_city}**.")
+
+st.markdown("## Daily Weather Highlights by City")
+for city in selected_cities:
+    city_data = df_filtered[df_filtered["Ville"] == city]
+    if not city_data.empty:
+        # Regrouper 
+        grouped_data = df_filtered.groupby(["Date", "Day_Time"], as_index=False).agg({
+        "Weather": lambda x: x.mode()[0] 
+        })
+
+        # Avoir "Day_Time" comme colonnes
+        pivot_table = grouped_data.pivot(index="Date", columns="Day_Time", values="Weather")
+
+        # Réorganiser les colonnes dans l'ordre 
+        desired_order = ["Morning", "Afternoon", "Evening", "Night"]
+        pivot_table = pivot_table.reindex(columns=desired_order)
+                  
+        # Afficher 
+        st.markdown(f"### **{city}**")
+        st.dataframe(pivot_table)
+
+# Regrouper 
+grouped_data = df_filtered.groupby(["Date", "Day_Time"], as_index=False).agg({
+    "Weather": lambda x: x.mode()[0] 
+})
+
+# Avoir "Day_Time" comme colonnes
+pivot_table = grouped_data.pivot(index="Date", columns="Day_Time", values="Weather")
+

@@ -8,10 +8,10 @@ def load_data():
     df = pd.read_csv("final_results.csv")
     return df
 
-# Affiche l'image avec une taille personnalisée
+# Affiche l'image
 st.image("Assets/Logo_FAP.png", use_container_width=False, width=600)
 
-# Custom title with larger font size
+# Titre de la page
 st.markdown("""<h1 style='text-align: center; font-size: 8em;'>
              Welcome 
             </h1>""", unsafe_allow_html=True)
@@ -30,11 +30,8 @@ Navigate through the sidebar to discover the following pages:
 # Load data
 df = load_data()
 
-# Since we have multiple forecasts for each city and multiple dates, let's just show current predictions or a subset.
-# For demo, let's pick the first date available for each city.
-df_unique = df.groupby("Ville").first().reset_index()
 
-# Group the data
+# Regrouper les Data
 df_agg = df.groupby(["Ville", "Date", "Day_Time"], as_index=False).agg({
     "Temp_Max": "mean",
     "Temp_Min": "mean",
@@ -44,12 +41,15 @@ df_agg = df.groupby(["Ville", "Date", "Day_Time"], as_index=False).agg({
     "Weather": lambda x: x.mode()[0]
 })
 
-# Round Values for visibility
+# Arrondir
 df_agg["Temp_Max"] = df_agg["Temp_Max"].round(1)
 df_agg["Temp_Min"] = df_agg["Temp_Min"].round(1)
 df_agg["Temp_Avg"] = df_agg["Temp_Avg"].round(1)
 df_agg["Humidity"] = df_agg["Humidity"].round(1)
 df_agg["Rain_Probability"] = df_agg["Rain_Probability"].round(1)
+
+# ajouter une colonne Date_Hour
+df["Date_Hour"] = df["Date"] + " " + df["Hour"].astype(str) + ":00"
 
 # Section : À Propos du Projet
 st.markdown("## The Project")
@@ -66,22 +66,22 @@ The goal is to provide users with personalized destination recommendations by an
 """)
 
 
-# Create a map figure with plotly
+# Carte
 fig = px.density_mapbox(
     df,
     lat="Latitude",
     lon="Longitude",
     z="Temp_Avg",
     mapbox_style="open-street-map",
-    animation_frame="Date",
+    animation_frame="Date_Hour",
     zoom=3.5,
-    radius=5,
+    radius=4,
     center={"lat": 46.603354, "lon": 1.888334},
     color_continuous_scale="Plasma"
 )
 
 
-# Affichage dans Streamlit
+# Affichage
 st.plotly_chart(fig, use_container_width=True)
 
 # Page descriptions
@@ -95,17 +95,12 @@ st.markdown("""
 """)
 
 
-# Closing note
 st.markdown("⬅️ Use the sidebar to start exploring. Enjoy your journey!")
-
-# Fonctionnalités
-
-
 
 # Valeur Ajoutée
 st.markdown("#### - What Makes It Unique?")
 st.markdown("""
-This app combines weather data, data analysis, and interactive maps to create a seamless user experience. 
+This app combines weather, data analysis, and interactive maps to create a seamless user experience. 
 Its ability to recommend destinations based on personal preferences and current weather makes it stand out, 
 offering both inspiration and practical tools for travel planning. ✨
 """)

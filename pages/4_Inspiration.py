@@ -26,17 +26,26 @@ method = st.radio(
     )
 )
 
-# Option 1 : Filtrage Personnalisé
+# Option 1 
 if method == "Filter by Preferences":
     st.sidebar.markdown("### Customize Your Search")
-    temp_min = st.sidebar.slider("Minimum Temperature (°C)", -10, 40, 10)
-    temp_max = st.sidebar.slider("Maximum Temperature (°C)", -10, 40, 25)
-    rain_max = st.sidebar.slider("Maximum Rain Probability (%)", 0, 100, 50)
+    # Slider combiné pour Température (plage)
+    temp_min, temp_max = st.sidebar.slider(
+        "Select Temperature Range (°C)",  # Label du slider
+        -10, 40,  # Valeurs minimale et maximale possibles
+        (0, 25)  # Valeurs par défaut (plage initiale)
+    )
+    rain_min, rain_max = st.sidebar.slider(
+        "Rain Probability Range (%)",
+          0.0, 1.0, 
+          (0.0, 0.5)
+    )
 
     # Filtrer les données
     filtered_df = df[
         (df["Temp_Avg"] >= temp_min) &
         (df["Temp_Avg"] <= temp_max) &
+        (df["Rain_Probability"] >= rain_min) &
         (df["Rain_Probability"] <= rain_max)
     ]
 
@@ -50,20 +59,26 @@ if method == "Filter by Preferences":
     if not best_cities_per_day.empty:
         st.markdown("### Top Recommendations Based on Your Preferences")
 
-        # Créer une colonne avec des liens cliquables pour l'hôtel
+        # liens cliquables pour l'hôtel
         best_cities_per_day["Hotel"] = best_cities_per_day.apply(
-            lambda row: f"<a href='{row['Hotel_1_Link']}' target='_blank'>{row['Hotel_1_Name']}</a>",
+            lambda row: f"<a href='{row['Hotel_1_Link']}' target='_blank'>Book it!</a>",
             axis=1
         )
 
-        # Afficher le tableau avec le HTML activé
+        # liens cliquables pour les trains
+        best_cities_per_day["Train"] = best_cities_per_day.apply(
+            lambda row: f"<a href='{row['Train']}' target='_blank'>Let's Go</a>",
+            axis=1
+        )
+
+        # Afficher le tableau
         st.markdown(
-            best_cities_per_day[["Date", "Ville", "Temp_Avg", "Weather", "Rain_Probability", "Hotel"]]
+            best_cities_per_day[["Date", "Ville", "Temp_Avg", "Weather", "Rain_Probability", "Hotel", "Train"]]
             .to_html(escape=False, index=False),
             unsafe_allow_html=True
         )
 
-        # Carte interactive
+        # Carte
         st.markdown("### Explore on the Map")
         fig = px.scatter_mapbox(
             best_cities_per_day,
@@ -72,16 +87,16 @@ if method == "Filter by Preferences":
             hover_name="Ville",
             hover_data=["Temp_Avg", "Weather", "Rain_Probability"],
             mapbox_style="open-street-map",
-            zoom=5
+            zoom=4
         )
-        # Agrandir les points sur la carte
-        fig.update_traces(marker=dict(size=15))  # Taille fixe pour tous les points
+        # Agrandir les points 
+        fig.update_traces(marker=dict(size=15))
         fig.update_traces(marker=dict(color='blue'))
         st.plotly_chart(fig, use_container_width=True)
     else:
         st.markdown("### No destinations match your criteria. Try adjusting the filters!")
 
-# Option 2 : Meilleur Weather_Score et Température
+# Option 2 
 elif method == "City with Best Weather Score and Temperature":
     best_city = df.sort_values(by=["Weather_Score", "Temp_Avg"], ascending=False).iloc[0]
     st.markdown(f"### Best Destination: **{best_city['Ville']}**")
@@ -90,10 +105,11 @@ elif method == "City with Best Weather Score and Temperature":
         - **Average Temperature**: {best_city['Temp_Avg']}°C
         - **Weather**: {best_city['Weather']}
         - **Rain Probability**: {best_city['Rain_Probability']}%
-        - **Hotel**: [{best_city['Hotel_1_Name']}]({best_city['Hotel_1_Link']})
+        - **Hotel**: [Book it!]({best_city['Hotel_1_Link']})
+        - **Train**: [Let's Go!]({best_city['Train']})
     """)
 
-    # Carte pour cette ville
+    # Carte
     fig = px.scatter_mapbox(
         df[df["Ville"] == best_city["Ville"]],
         lat="Latitude",
@@ -102,12 +118,12 @@ elif method == "City with Best Weather Score and Temperature":
         mapbox_style="open-street-map",
         zoom=6,
     )
-    # Agrandir les points sur la carte
-    fig.update_traces(marker=dict(size=15))  # Taille fixe pour tous les points
+    # Agrandir les points
+    fig.update_traces(marker=dict(size=15))
     fig.update_traces(marker=dict(color='blue'))
     st.plotly_chart(fig, use_container_width=True)
 
-# Option 3 : Ville au Hasard
+# Option 3
 elif method == "Random City":
     random_city = random.choice(df["Ville"].unique())
     city_data = df[df["Ville"] == random_city]
@@ -115,23 +131,29 @@ elif method == "Random City":
     # Regrouper par jour pour afficher une ligne par jour
     city_grouped_by_day = city_data.groupby("Date").first().reset_index()
 
-    # Créer une colonne avec des liens cliquables pour l'hôtel
+    # liens cliquables pour l'hôtel
     city_grouped_by_day["Hotel"] = city_grouped_by_day.apply(
-        lambda row: f"<a href='{row['Hotel_1_Link']}' target='_blank'>{row['Hotel_1_Name']}</a>",
+        lambda row: f"<a href='{row['Hotel_1_Link']}' target='_blank'>Book it!</a>",
+        axis=1
+    )
+
+    # liens cliquables pour les trains
+    city_grouped_by_day["Train"] = city_grouped_by_day.apply(
+        lambda row: f"<a href='{row['Train']}' target='_blank'>Let's Go</a>",
         axis=1
     )
 
     st.markdown(f"### Random Destination: **{random_city}**")
     st.markdown("#### Weather Highlights")
 
-    # Afficher le tableau avec le HTML activé
+    # Afficher le tableau
     st.markdown(
-        city_grouped_by_day[["Date", "Temp_Avg", "Weather", "Rain_Probability", "Hotel"]]
+        city_grouped_by_day[["Date", "Temp_Avg", "Weather", "Rain_Probability", "Hotel", "Train"]]
         .to_html(escape=False, index=False),
         unsafe_allow_html=True
     )
 
-    # Carte pour cette ville
+    # Carte
     st.markdown("### Explore on the Map")
     fig = px.scatter_mapbox(
         city_grouped_by_day,
@@ -141,7 +163,7 @@ elif method == "Random City":
         mapbox_style="open-street-map",
         zoom=6
     )
-    # Agrandir les points sur la carte
-    fig.update_traces(marker=dict(size=15))  # Taille fixe pour tous les points
+    # Agrandir les points
+    fig.update_traces(marker=dict(size=15))
     fig.update_traces(marker=dict(color='blue'))
     st.plotly_chart(fig, use_container_width=True)
