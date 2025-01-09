@@ -65,11 +65,10 @@ villes = [
     "Baume-les-Messieurs", "Salins-les-Bains", "Métabief", "Clairvaux-les-Lacs", 
     "Lamoura", "Château-Chalon", "Nantua",   
     #Mediterranée
-    "Nice", "Cannes", "Antibes", "Saint-Tropez", "Menton", "Monaco", 
-    "Juan-les-Pins", "Marseille", "Cassis", "Bandol", "Hyères", 
-    "Sanary-sur-Mer", "Montpellier", "Sète", "Agde", "Cap d’Agde", "Gruissan", 
-    "Narbonne", "Palavas-les-Flots", "Collioure", "Port-Vendres", "Banyuls-sur-Mer",
-    "Argelès-sur-Mer",
+    "Nice", "Cannes", "Antibes", "Saint-Tropez", "Menton", "Juan-les-Pins", 
+    "Marseille", "Cassis", "Bandol", "Hyères", "Sanary-sur-Mer", "Montpellier", 
+    "Sète", "Agde", "Cap d’Agde", "Gruissan", "Narbonne", "Palavas-les-Flots", 
+    "Collioure", "Port-Vendres", "Banyuls-sur-Mer", "Argelès-sur-Mer",
     #Littoral Atlantique
     "Hendaye", "Saint-Jean-de-Luz", "Biarritz", "Anglet", "Bayonne", "Hossegor", 
     "Capbreton", "Seignosse", "Biscarrosse", "Mimizan", "Arcachon", 
@@ -157,7 +156,7 @@ notations = {
     "tornado": -400,
 }
 
-# Create a column for the time of the day
+# Créer une colonne "Day_Time"
 def time_of_the_day(dt):
     hour = dt.hour
     if 6 <= hour < 12:
@@ -245,6 +244,10 @@ process.start(install_signal_handlers=False)
 
 # Intégrer les résultats météo et hôtels
 combined_results = []
+
+# URL SNCF personnalisé par ville
+train_base_url = "https://www.sncf-connect.com/app/home/search/od?originLabel=Paris&originId=RESARAIL_STA_8768600&destinationLabel={}&destinationId=RESARAIL_STA_8774678&outwardDateTime=2025-01-15T08:30:00&directTrains=true"
+
 for _, row in df_meteo.iterrows():
     ville = row["Ville"]
     hotels = next((h["hotels"] for h in hotel_results if h["city"] == ville), [])
@@ -252,13 +255,14 @@ for _, row in df_meteo.iterrows():
     for i, hotel in enumerate(hotels):
         combined_row[f"Hotel_{i+1}_Name"] = hotel.get("hotel_name", "N/A")
         combined_row[f"Hotel_{i+1}_Link"] = hotel.get("link", "N/A")
+    
+    combined_row["Train"] = train_base_url.format(ville.replace(" ", "%20"))
     combined_results.append(combined_row)
 
-# Convertir en DataFrame final et trier par Weather_Score
+# Convertir en DataFrame
 df_combined = pd.DataFrame(combined_results)
-#df_combined = df_combined.sort_values(by="Weather_Score", ascending=False)
 
-# Sauvegarder dans un fichier CSV unique
+# Sauvegarder dans un fichier CSV
 output_file = "final_results.csv"
 df_combined.to_csv(output_file, index=False, encoding="utf-8")
 print(f"Les résultats finaux ont été enregistrés dans {output_file}.")

@@ -21,14 +21,20 @@ with col2:
     
     if st.button("Contact Me"):
         show_contact_form()
+    
+    st.markdown("""
+    - [LinkedIn](https://www.linkedin.com/in/jean-baptiste-allombert/)  
+    - [GitHub](https://github.com/JBaptisteAll)
+    """)
+    st.markdown("""Feel free to reach out to me.""")
 
 
 # Section : Présentation Personnelle
-st.markdown("""Welcome, Here's a little insight into who I am!""")
+st.markdown("#### Welcome, Here's a little insight into who I am!")
 st.markdown("## About Me")
 st.markdown("""
 Hi, I'm Jean-Baptiste! I'm a passionate learner currently diving deep into the world of data analysis and programming. 
-After discovering my love for technology, I decided to embark on this journey to master Python, data science, and more.
+After discovering my love for technology, I decided to embark on this journey to master Python, data analysis, and more.
 In my free time, I love exploring nature, especially hiking in the mountains. 🏔️
 """)
 
@@ -41,7 +47,7 @@ st.markdown("""
 My journey into data began as a self-taught learner. I explored various online platforms, including Coursera, 
 where I completed courses offered by Google and Meta to build my foundational knowledge in data analytics. 📚
 
-To validate my skills and take my expertise to the next level, I enrolled in a bootcamp with [**Jedha**](https://www.jedha.co/). 
+To validate my skills and take my expertise to the next level, I enrolled in a bootcamp with [Jedha](https://www.jedha.co/). 
 This rigorous program provided me with hands-on experience in Python programming, data visualization, 
 and machine learning, solidifying my capabilities as a future Data Analyst.
 """)
@@ -49,9 +55,9 @@ and machine learning, solidifying my capabilities as a future Data Analyst.
 # Compétences Acquises
 st.markdown("### Skills Developed")
 st.markdown("""
-- **Programming**: Proficient in SQL and Python, with experience in libraries like Pandas, Matplotlib, and plotly.
+- **Programming**: Proficient in **SQL** and **Python**, with experience in libraries like Pandas, Matplotlib, and plotly.
 - **Data Analysis**: Expertise in cleaning, exploring, and visualizing data to uncover actionable insights.
-- **Visualization**: Strong hands-on experience and knowledge in PowerBI and Tableau.
+- **Visualization**: Strong hands-on experience and knowledge in **PowerBI** and **Tableau**.
 - **Soft Skills**: Problem-solving, collaboration, and communication skills developed through projects and teamwork.
 """)
 
@@ -79,15 +85,3 @@ st.markdown("""
 - Continue developing my skills in data analysis and visualization.
 - Contribute to open-source projects and build a strong portfolio for my dream job in the tech industry. 
 """)
-
-# Section : Contact
-st.markdown("## Contact Me")
-st.markdown("""
-Feel free to reach out to me on:
-- [LinkedIn](https://www.linkedin.com/in/jean-baptiste-allombert/)  
-- [GitHub](https://github.com/JBaptisteAll)  
-Or send me an email at **your_email@example.com**.
-""")
-
-
-
