@@ -102,7 +102,7 @@ if not df_filtered.empty:
         mapbox_style="open-street-map",
         animation_frame="Date",
         z="Temp_Avg",
-        zoom=7,  
+        zoom=6,  
         radius=7,
         center={"lat": center_lat, "lon": center_lon},
         color_continuous_scale="Plasma",
