@@ -1,0 +1,15 @@
+[theme]
+# Couleurs pour Elements interactifs
+primaryColor = "#d33682"
+
+# Couleur arrire plan
+backgroundColor = "#002b36"
+
+# Couleur Sidebar
+secondaryBackgroundColor = "#3a4c52"
+
+# Couleur texte
+textColor = "fff"
+
+[client]
+toolbarMode = "minimal"

@@ -1,5 +1,13 @@
-import streamlit as st
+import re
 
+import streamlit as st
+import requests
+
+WEBHOOK_URL = st.secrets["WEBHOOK_URL"]
+
+def is_valid_email(email):
+    email_pattern = r"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"
+    return re.match(email_pattern, email) is not None
 
 def contact_form():
     with st.form("contact_form"):
@@ -9,4 +17,31 @@ def contact_form():
         submit_button = st.form_submit_button("Submit")
 
         if submit_button:
-            st.success("Message successfully sent!")
+            if not WEBHOOK_URL:
+                st.error("Email service is not set up. Please try again later.")
+                st.stop()
+
+            if not name:
+                st.error("Please provide your name.")
+                st.stop()
+
+            if not email:
+                st.error("Please provide your email address.")
+                st.stop()
+
+            if not is_valid_email:
+                st.error("Please provide a valid email address.")
+                st.stop()
+
+            if not message:
+                st.error("Please write a message.")
+                st.stop()
+
+            # Preparer Data et envoyé au Webhook
+            data = {"email": email, "name": name, "message": message}
+            response = requests.post(WEBHOOK_URL, json=data)
+
+            if response.status_code == 200:
+                st.success("Your message has been successfully sent!")
+            else:
+                st.error("There has been an error sending your message.")

@@ -7,14 +7,14 @@ def show_contact_form():
     contact_form()
 
 # Création de colonnes
-col1, col2 = st.columns(2, gap="small", vertical_alignment="center")  # Ajuste les proportions des colonnes (1:2 ici)
+col1, col2 = st.columns(2, gap="small", vertical_alignment="center")
 
-# Contenu de la colonne de gauche
+# Colonne de gauche
 with col1:
-    st.image("Assets\JB.png", width=150)  # Affiche un logo
+    st.image("Assets\JB.png", width=150)
     
 
-# Contenu de la colonne de droite
+# Colonne de droite
 with col2:
     st.markdown("""
         ### Contact me 📩""")
@@ -23,12 +23,14 @@ with col2:
         show_contact_form()
     
     st.markdown("""
-    - [LinkedIn](https://www.linkedin.com/in/jean-baptiste-allombert/)  
-    - [GitHub](https://github.com/JBaptisteAll)
+    [LinkedIn](https://www.linkedin.com/in/jean-baptiste-allombert/)  
+    [GitHub](https://github.com/JBaptisteAll)
     """)
-    st.markdown("""Feel free to reach out to me.""")
+    #st.markdown("""Feel free to reach out to me.""")
 
 
+
+st.write("#")
 # Section : Présentation Personnelle
 st.markdown("#### Welcome, Here's a little insight into who I am!")
 st.markdown("## About Me")
@@ -38,8 +40,10 @@ After discovering my love for technology, I decided to embark on this journey to
 In my free time, I love exploring nature, especially hiking in the mountains. 🏔️
 """)
 
+#st.write("#")
+st.write("---")
 # Section : Mon Parcours
-st.markdown("## My Journey")
+st.markdown("# My Journey")
 
 # Formation
 st.markdown("### Education & Training")
@@ -77,11 +81,11 @@ I aspire to work on impactful projects, continue learning advanced techniques,
 and contribute to the tech community by sharing knowledge and building innovative solutions. 
 """)
 
-
+st.write("---")
 # Section : Objectifs Futurs
 st.markdown("## Future Plans")
 st.markdown("""
-- Enhance this application by adding more features, such as user reviews or real-time updates.
+- Enhance this application by adding more features, such as Snow Section or real-time updates.
 - Continue developing my skills in data analysis and visualization.
 - Contribute to open-source projects and build a strong portfolio for my dream job in the tech industry. 
 """)
