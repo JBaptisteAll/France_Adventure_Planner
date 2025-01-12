@@ -21,6 +21,13 @@ api_key = os.getenv("API_KEY")
 
 # Liste des villes
 villes = [
+    # Analyse Météo
+    "Paris",  "Lyon", "Toulouse",    "Nantes", "Strasbourg", "Bordeaux", "Lille", 
+    "Rennes", "Reims", "Saint-Étienne", "Toulon", "Dijon", "Angers", "Nîmes", 
+    "Villeurbanne", "Le Mans", "Clermont-Ferrand", "Brest", "Aix-en-Provence", 
+    "Amiens", "Limoges", "Annecy", "Perpignan", "Caen", "Metz", "Besançon", 
+    "Orléans", "Rouen", "Avignon", "Pau", "Poitiers", "Mulhouse", "Colmar", 
+    "Chambéry", "Lourdes", "Arles", "Carcassonne", "Albi", "Ajaccio",
     #Alpes
     #Les Ecrins
     "Bourg d'Oisans", "Le Périer", "La Chapelle-en-Valgaudémar", "Vallouise",
@@ -206,7 +213,11 @@ for ville in villes:
 df_meteo = pd.DataFrame(meteo_resultats)
 df_meteo["Weather_Score"] = df_meteo["Weather"].map(notations)
 df_meteo["Temp_Avg"] = (df_meteo["Temp_Max"] + df_meteo["Temp_Min"]) / 2
-
+# Add the column Run_Date
+run_date = datetime.now().strftime("%Y-%m-%d")
+df_meteo["Run_Date"] = run_date
+# convert the "Date" in a datetime format
+df_meteo["Date"] = pd.to_datetime(df_meteo["Date"])
 
 
 
@@ -262,7 +273,68 @@ for _, row in df_meteo.iterrows():
 # Convertir en DataFrame
 df_combined = pd.DataFrame(combined_results)
 
-# Sauvegarder dans un fichier CSV
+# Sauvegarder les données combinées dans un fichier principal
 output_file = "final_results.csv"
 df_combined.to_csv(output_file, index=False, encoding="utf-8")
 print(f"Les résultats finaux ont été enregistrés dans {output_file}.")
+
+
+
+# Charger les données météo consolidées
+df_meteo = pd.read_csv("final_results.csv")
+df_meteo["Date"] = pd.to_datetime(df_meteo["Date"])
+
+# Chemin de sauvegarde des fichiers forecasts
+output_folder = "forecasts"
+os.makedirs(output_folder, exist_ok=True)
+
+# Liste des villes fichiers forecasts
+cities_to_split = [
+    "Paris", "Marseille", "Lyon", "Toulouse", "Nice", "Nantes", "Strasbourg",
+    "Montpellier", "Bordeaux", "Lille", "Rennes", "Reims", "Le Havre",
+    "Saint-Étienne", "Toulon", "Grenoble", "Dijon", "Angers", "Nîmes",
+    "Villeurbanne", "Le Mans", "Clermont-Ferrand", "Brest", "Aix-en-Provence",
+    "Amiens", "Limoges", "Annecy", "Perpignan", "Boulogne-sur-Mer", "Biarritz",
+    "Caen", "Metz", "Besançon", "Orléans", "Rouen", "Avignon", "Pau",
+    "Poitiers", "Mulhouse", "La Rochelle", "Bayonne", "Colmar", "Chambéry",
+    "Lourdes", "Saint-Malo", "Chamonix", "Arles", "Carcassonne",
+    "Albi", "Ajaccio"
+]
+
+# Liste des colonnes fichiers forecasts
+columns_to_save = [
+    "Ville", "Latitude", "Longitude", "Date", "Hour", "Day_Time",
+    "Temp_Max", "Temp_Min", "Humidity", "Weather", "Rain_Probability",
+    "Weather_Score", "Temp_Avg", "Run_Date"
+]
+
+# Sauvegarder les prévisions d'un jour spécifique
+def save_forecast_append(df, day_offset, output_folder, cities, columns):
+    target_date = (datetime.now() + timedelta(days=day_offset)).date()
+    # Filtrer les données par date, ville et colonnes
+    filtered_data = df[(df["Date"].dt.date == target_date) & (df["Ville"].isin(cities))]
+    filtered_data = filtered_data[columns]
+     
+    if not filtered_data.empty:
+        output_file = os.path.join(output_folder, f"weather_data_forecast_{day_offset}day.csv")
+        
+        if os.path.exists(output_file):
+            # Charger les données existantes
+            existing_data = pd.read_csv(output_file)
+            combined_data = pd.concat([existing_data, filtered_data], ignore_index=True)
+        else:            
+            combined_data = filtered_data
+        
+        # Sauvegarder les données combinées
+        combined_data.to_csv(output_file, index=False, encoding="utf-8")
+        print(f"Données ajoutées à {output_file}.")
+    else:
+        print(f"Aucune donnée disponible pour la date {target_date}.")
+
+# Sauvegarder les 5 jours de prévision pour les 50 villes
+for day in range(1, 6):
+    save_forecast_append(df_meteo, day, output_folder, cities_to_split, columns_to_save)
+
+# Sauvegarder final_results.csv
+df_meteo.to_csv("final_results.csv", index=False, encoding="utf-8")
+print("final_results.csv sauvegardé.")
