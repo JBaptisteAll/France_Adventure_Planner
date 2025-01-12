@@ -5,7 +5,6 @@ Welcome_page = st.Page(
     page="pages/1_Welcome.py",
     title="France Adventure Planner",
     icon="🌤️",
-    default=True,
 )
 
 Mountains_page = st.Page(
@@ -30,6 +29,7 @@ about_page = st.Page(
     page="pages/5_About_Me.py",
     title="About Me",
     icon="📝",
+    default=True,
 )
 
 #NAVIGATION
