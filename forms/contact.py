@@ -14,9 +14,6 @@ def contact_form():
         name = st.text_input("First Name")
         email = st.text_input("Email Adress")
         message = st.text_area("Your Message")
-        # Dropdown for language choice
-        language = st.selectbox("Preferred Language / Langue Préférée", ["English", "Français"])
-        
         submit_button = st.form_submit_button("Submit")
 
         if submit_button:
@@ -45,6 +42,6 @@ def contact_form():
             response = requests.post(WEBHOOK_URL, json=data)
 
             if response.status_code == 200:
-                st.success("Your message has been successfully sent!")
+                st.success("Your message has been successfully sent! Check your inbox")
             else:
                 st.error("There has been an error sending your message.")
