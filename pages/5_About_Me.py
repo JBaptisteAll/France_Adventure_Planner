@@ -11,7 +11,7 @@ col1, col2 = st.columns(2, gap="small", vertical_alignment="center")
 
 # Colonne de gauche
 with col1:
-    st.image("Assets\JB_2.png", width=300)
+    st.image("Assets/JB_2.png", width=300)
     
 
 # Colonne de droite
