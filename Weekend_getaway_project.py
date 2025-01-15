@@ -4,10 +4,10 @@ import logging
 import requests
 import pandas as pd
 from datetime import datetime, timedelta
-import scrapy
-from scrapy.crawler import CrawlerProcess
+import scrapy # type: ignore
+from scrapy.crawler import CrawlerProcess # type: ignore
 import time
-from dotenv import load_dotenv
+from dotenv import load_dotenv # type: ignore
 import os
 
 
