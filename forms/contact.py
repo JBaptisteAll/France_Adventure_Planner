@@ -11,9 +11,9 @@ def is_valid_email(email):
 
 def contact_form():
     with st.form("contact_form"):
-        name = st.text_input("First Name")
-        email = st.text_input("Email Adress")
-        message = st.text_area("Your Message")
+        name = st.text_input("First Name:")
+        email = st.text_input("Email Adress: (optional)")
+        message = st.text_area("Your Message:")
         submit_button = st.form_submit_button("Submit")
 
         if submit_button:
@@ -25,9 +25,9 @@ def contact_form():
                 st.error("Please provide your name.")
                 st.stop()
 
-            if not email:
-                st.error("Please provide your email address.")
-                st.stop()
+            #if not email:
+                #st.error("Please provide your email address.")
+                #st.stop()
 
             if not is_valid_email:
                 st.error("Please provide a valid email address.")
