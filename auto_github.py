@@ -12,21 +12,16 @@ def run_command(command):
 
 # Commandes prédéfinies
 def automate_github_workflow():
-    """
-    Exécute un workflow GitHub prédéfini.
-    """
+    
     
     # Ajouter fichiers
-    print("Ajout des fichiers au staging area...")
     run_command(["git", "add", "."])
 
     # Créer un commit
-    print("Création d'un commit...")
-    commit_message = "Mise à jour automatique via script Python"
+    commit_message = "Automatic push using Python script"
     run_command(["git", "commit", "-m", commit_message])
 
     # Pousser les changements
-    print("Push des changements vers GitHub...")
     run_command(["git", "push", "-u", "origin", "main"])
 
 if __name__ == "__main__":
