@@ -26,6 +26,12 @@ Inspiration_page = st.Page(
     icon="💡",
 )
 
+Weather_Analysis = st.Page(
+    page="pages/6_Analysis.py",
+    title="Weather Analysis",
+    icon="📊",
+)
+
 about_page = st.Page(
     page="pages/5_About_Me.py",
     title="About Me",
@@ -36,6 +42,7 @@ about_page = st.Page(
 pg = st.navigation(
     {
         "Project": [Welcome_page, Mountains_page, Sea_page, Inspiration_page],
+        "Analysis": [Weather_Analysis],
         "Info": [about_page]
     }
 )
