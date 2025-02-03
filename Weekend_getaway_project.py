@@ -303,7 +303,7 @@ cities_to_split = [
 
 # Liste des colonnes fichiers forecasts
 columns_to_save = [
-    "Ville", "Latitude", "Longitude", "Date", "Hour",
+    "Ville", "Latitude", "Longitude", "Date",
     "Temp_Max", "Temp_Min", "Humidity", "Weather", "Rain_Probability",
     "Weather_Score", "Temp_Avg", "Run_Date"
 ]

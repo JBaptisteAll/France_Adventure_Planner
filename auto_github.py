@@ -18,7 +18,7 @@ def automate_github_workflow():
     run_command(["git", "add", "."])
 
     # Créer un commit
-    commit_message = "SQL set up"
+    commit_message = "Automatic push using Python script"
     run_command(["git", "commit", "-m", commit_message])
 
     # Pousser les changements
