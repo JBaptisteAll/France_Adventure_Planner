@@ -1,0 +1,11 @@
+{
+    "sqltools.useNodeRuntime": true,
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "driver": "SQLite",
+            "name": "weather_db",
+            "database": "${workspaceFolder:France_Adventure_Planner}/SQL/weather_data.db"
+        }
+    ]
+}
