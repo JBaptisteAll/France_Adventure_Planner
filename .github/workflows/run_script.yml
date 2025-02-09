@@ -25,7 +25,7 @@ jobs:
           pip install scrapy
       
       - name: Run script
-        run: python Weekend_getaway_project.py # Script principal
+        run: python Weekend_getaway_project.py # Script
 
       - name: Commit et push des résultats
         run: |
