@@ -22,7 +22,7 @@ jobs:
         run: |
           pip install -r requirements.txt
           pip install --upgrade pip
-          pip install scrapy
+          pip install scrapy python-dotenv
       
       - name: Run script
         run: python Weekend_getaway_project.py # Script
