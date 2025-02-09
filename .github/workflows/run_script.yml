@@ -19,9 +19,11 @@ jobs:
           python-version: '3.11'  
 
       - name: Install dependencies
-        run: pip install -r requirements.txt  # Dépendances
-        pip install scrapy  # Ajout de Scrapy
-
+        run: |
+          pip install -r requirements.txt
+          pip install --upgrade pip
+          pip install scrapy
+      
       - name: Run script
         run: python Weekend_getaway_project.py # Script principal
 
