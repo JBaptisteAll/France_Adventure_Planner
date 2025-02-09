@@ -11,7 +11,7 @@ def is_valid_email(email):
 
 def contact_form():
     with st.form("contact_form"):
-        name = st.text_input("First Name:")
+        name = st.text_input("Name:")
         email = st.text_input("Email Adress: (optional)")
         message = st.text_area("Your Message:")
         submit_button = st.form_submit_button("Submit")
