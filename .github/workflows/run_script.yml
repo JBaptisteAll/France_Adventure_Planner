@@ -20,6 +20,7 @@ jobs:
 
       - name: Install dependencies
         run: pip install -r requirements.txt  # Dépendances
+        pip install scrapy  # Ajout de Scrapy
 
       - name: Run script
         run: python Weekend_getaway_project.py # Script principal
