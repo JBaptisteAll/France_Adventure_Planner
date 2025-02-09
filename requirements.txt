@@ -3,3 +3,4 @@ Requests
 streamlit
 plotly
 numpy
+scrapy
