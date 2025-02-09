@@ -23,3 +23,12 @@ jobs:
 
       - name: Run script
         run: python Weekend_getaway_project.py # Script principal
+
+      - name: Commit et push des résultats
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+          git add final_results.csv
+          git commit -m "Mise à jour automatique de final_results.csv [skip ci]" || echo "Aucune modification à committer"
+          git push
+
