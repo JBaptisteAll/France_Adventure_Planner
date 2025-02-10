@@ -2,7 +2,7 @@ name: Run Python Script Daily
 
 on:
   schedule:
-    - cron: '30 22 * * *'  # Exécute chaque jour à 22H30 UTC
+    - cron: '30 21 * * *'  # Exécute chaque jour à 21H30 UTC
   workflow_dispatch:  # Permet de lancer manuellement si besoin
 
 jobs:
@@ -40,6 +40,6 @@ jobs:
           git checkout main
           git pull origin main
           git add final_results.csv
-          git commit -m "Auto update of final_results.csv with Actions [skip ci]" || echo "No changes to commit"
+          git commit -m "Auto update of final_results.csv with Actions" || echo "No changes to commit"
           git push origin main
 

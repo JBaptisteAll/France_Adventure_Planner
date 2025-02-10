@@ -17,19 +17,25 @@ This project integrates multiple technologies:
 - **Pandas**: For data manipulation and analysis.
 - **Plotly**: For visualizing weather conditions.
 - **Make.com**: Automates the "Contact Me" form, storing user data in Google Sheets and sending automated email responses.
-- **Windows Task Scheduler**: Automates script execution daily at 10:30 PM, followed by a second script that pushes the updated CSV files to GitHub.
+- **GitHub Actions**: Automates script execution and data updates every day at 22:00 UTC.
 
 ## How It Works
 
-1️⃣ **Automated Updates** → Task Scheduler runs scripts every night 
+1️⃣ **Automated Updates** → **GitHub Actions** runs scripts every night  
 
 2️⃣ **Data Collection** → Weather & Hotel data are fetched via APIs and Scrapy   
 
-3️⃣ **Data Storage** → Results are stored in `final_results.csv` 
+3️⃣ **Data Storage** → Results are stored in `final_results.csv` and committed to GitHub  
 
 4️⃣ **Visualization** → The Streamlit app displays the latest weather insights  
 
 5️⃣ **User Interaction** → Contact form automates responses via Make.com  
+
+Initially, Windows Task Scheduler was used during the first month to ensure that the script executed correctly and that the data updates were stable. Once the workflow proved to be reliable, the setup was migrated to GitHub Actions for full automation.
+
+This new setup ensures seamless automation without requiring manual intervention or local execution. GitHub Actions replaces Windows Task Scheduler, allowing the script to run directly in the cloud and update data automatically every day.
+
+---
 
 ## Data Collection Process
 
@@ -60,22 +66,25 @@ I implemented a **Scrapy** spider to collect hotel information from **Booking.co
 ## Data Storage and Structure
 The main dataset is stored in `final_results.csv`, containing:
 
-- **City (Ville)**: Name of the destination.
-- **Latitude & Longitude**: Coordinates fetched via Nominatim API.
-- **Date**: Forecast date.
-- **Time of the day**: Categorized as Morning, Afternoon, Evening, or Night.
-- **Temperature (Max, Min, Avg)**: Recorded for each forecast period.
-- **Humidity**: Captures moisture levels.
-- **Weather Description**: Text-based weather conditions.
-- **Rain Probability**: Indicates chances of precipitation.
-- **Weather Score**: A custom metric for ranking destinations based on weather quality.
-- **Hotels**: Top 5 recommended hotels for each location, including names and booking links.
+| Column Name         | Description |
+|---------------------|-------------|
+| **City (Ville)**   | Destination name |
+| **Latitude & Longitude** | Coordinates fetched via Nominatim API |
+| **Date**           | Forecast date |
+| **Time of the day** | Categorized as Morning, Afternoon, Evening, or Night |
+| **Temperature (Max, Min, Avg)** | Temperature at different times of the day |
+| **Humidity**       | Captures moisture levels |
+| **Weather Description** | Text-based weather conditions |
+| **Rain Probability** | Indicates chances of precipitation |
+| **Weather Score**  | A custom metric for ranking destinations |
+| **Hotels**         | Top 5 recommended hotels with booking links |
 
 Additional CSV files store data for **50 specific cities** across different weather conditions for later analysis.
 
 ## Application Development
 ### 1. Streamlit Interface
 The application is divided into multiple sections:
+
 - **Welcome Page**: Overview and user guidance.
 - **Mountains Page**: Focuses on hiking and trekking destinations.
 - **Sea & Sun Page**: Highlights coastal areas for relaxation.
@@ -87,6 +96,23 @@ Each page fetches data from `final_results.csv` and provides weather insights an
 - **Plotly Maps**: Visualizes temperature variations across destinations.
 - **Dynamic Data Selection**: Users can filter destinations based on conditions.
 - **Automated Contact Form**: Users can submit inquiries, with responses handled via Make.com automation.
+
+## 🔄 Automation & Deployment
+
+✅ **Before**: Windows Task Scheduler ran scripts daily at 22:30 UTC, and a second script pushed the updated CSV files to GitHub.  
+✅ **Now**: GitHub Actions **automatically runs the script every day at 22:00 UTC**, updates the dataset, and commits the changes to the repository.
+
+### ✨ **What’s new with GitHub Actions?**
+- **Cloud-based execution** → No need for a local machine.
+- **Automated updates** → No manual intervention required.
+- **Scheduled runs** → Script runs **every day at 22:00 UTC**.
+- **GitHub-Integrated Logging** → Monitor execution directly in the **GitHub Actions dashboard**.
+
+
+This **upgrade makes the project fully autonomous** and ensures up-to-date data for the Streamlit application.
+
+---
+
 
 ## Key Takeaways
 - ✅ **Data Collection & Processing**: Web scraping, API calls, data wrangling  
@@ -102,5 +128,8 @@ Each page fetches data from `final_results.csv` and provides weather insights an
 
 ## Conclusion
 This project showcases my ability to **gather, clean, analyze, and visualize data**, as well as build an interactive web application. By combining real-time weather insights with web scraping and automation, I created a practical tool for travelers looking for optimal weekend destinations.
+
+With the upgrade to **GitHub Actions**, the project is now **fully automated**, ensuring up-to-date weather data without any manual intervention.
+
 
 The project remains open for further improvements, including deeper data analysis and expanded features tailored for urban users seeking local activities.
