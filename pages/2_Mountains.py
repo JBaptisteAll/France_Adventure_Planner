@@ -28,7 +28,7 @@ def load_and_prepare_data():
     return df
 
 # Charger les données
-df_agg = load_and_prepare_data()
+df_prepared = load_and_prepare_data()
 
 # Exemple de treks
 treks = {
@@ -124,7 +124,7 @@ selected_cities = treks[chosen_trek]
 selected_city = st.selectbox("Choose a city :", selected_cities)
 
 # Filtrer les données pour la ville sélectionnée
-city_data = df[df["Ville"] == selected_city]
+city_data = df_prepared[df_prepared["Ville"] == selected_city]
 if not city_data.empty:
     # Regrouper les données par jour
     city_grouped = city_data.groupby(["Date"], as_index=False).agg({
