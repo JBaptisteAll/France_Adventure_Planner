@@ -35,9 +35,18 @@ st.write("#")
 st.markdown("#### Welcome, Here's a little insight into who I am!")
 st.markdown("## About Me")
 st.markdown("""
-Hi, I'm Jean-Baptiste! I'm a passionate learner currently diving deep into the world of data analysis and programming. 
-After discovering my love for technology, I decided to embark on this journey to master Python, data analysis, and more.
-In my free time, I love exploring nature, especially hiking in the mountains. 🏔️
+Hi, I'm Jean-Baptiste! I'm a passionate learner currently diving deep into 
+the world of data analysis and programming. After discovering my love for technology, 
+I decided to embark on this journey to master Python, data analysis, and more.
+
+With 20 years of experience in the hospitality and tourism industry, I have developed 
+a deep understanding of sector challenges and provide tailored strategic analyses. 
+Proficient in Python, SQL, Power BI, and Tableau, I identify trends, optimize 
+decision-making, and enhance business performance.
+
+In my free time, I love exploring nature, especially hiking in the mountains. 🏔️ 
+Curious and self-driven, I seek to thrive in a dynamic environment where 
+I can continue learning and delivering value.            
 """)
 
 #st.write("#")
