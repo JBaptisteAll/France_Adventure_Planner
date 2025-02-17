@@ -93,8 +93,8 @@ if not df_filtered.empty:
     center_lat = df_filtered["Latitude"].mean()
     center_lon = df_filtered["Longitude"].mean()
     # Calculer les valeurs min et max de Temp_Avg pour toute la dataset
-    min_temp = df["Temp_Min"].min()
-    max_temp = df["Temp_Max"].max()
+    min_temp = df["Temp_Avg"].min()
+    max_temp = df["Temp_Avg"].max()
     
     # Carte
     fig = px.density_mapbox(
