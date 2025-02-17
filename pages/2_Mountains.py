@@ -28,7 +28,7 @@ def load_and_prepare_data():
     return df
 
 # Charger les données
-df_prepared = load_and_prepare_data()
+df = load_and_prepare_data()
 
 # Exemple de treks
 treks = {
@@ -93,8 +93,8 @@ if not df_filtered.empty:
     center_lat = df_filtered["Latitude"].mean()
     center_lon = df_filtered["Longitude"].mean()
     # Calculer les valeurs min et max de Temp_Avg pour toute la dataset
-    min_temp = df_filtered["Temp_Min"].min()
-    max_temp = df_filtered["Temp_Max"].max()
+    min_temp = df["Temp_Min"].min()
+    max_temp = df["Temp_Max"].max()
     
     # Carte
     fig = px.density_mapbox(
@@ -124,7 +124,7 @@ selected_cities = treks[chosen_trek]
 selected_city = st.selectbox("Choose a city :", selected_cities)
 
 # Filtrer les données pour la ville sélectionnée
-city_data = df_prepared[df_prepared["Ville"] == selected_city]
+city_data = df[df["Ville"] == selected_city]
 if not city_data.empty:
     # Regrouper les données par jour
     city_grouped = city_data.groupby(["Date"], as_index=False).agg({
