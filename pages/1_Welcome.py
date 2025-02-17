@@ -65,6 +65,9 @@ st.markdown("""
 The goal is to provide users with personalized destination recommendations by analyzing weather conditions, so they can plan their trips effortlessly. 
 """)
 
+# Calculer les valeurs min et max de Temp_Avg pour toute la dataset
+min_temp = df["Temp_Min"].min()
+max_temp = df["Temp_Max"].max()
 
 # Carte
 fig = px.density_mapbox(
@@ -78,7 +81,7 @@ fig = px.density_mapbox(
     radius=4,
     center={"lat": 46.603354, "lon": 1.888334},
     color_continuous_scale="Plasma",
-    range_color=[-20, 50]
+    range_color=[min_temp, max_temp]
 )
 
 
