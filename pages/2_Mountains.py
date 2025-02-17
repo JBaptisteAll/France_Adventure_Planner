@@ -92,6 +92,9 @@ if not df_filtered.empty:
     # Centrer la carte sur les coordonnées
     center_lat = df_filtered["Latitude"].mean()
     center_lon = df_filtered["Longitude"].mean()
+    # Calculer les valeurs min et max de Temp_Avg pour toute la dataset
+    min_temp = df["Temp_Min"].min()
+    max_temp = df["Temp_Max"].max()
     
     # Carte
     fig = px.density_mapbox(
@@ -106,7 +109,7 @@ if not df_filtered.empty:
         radius=7,
         center={"lat": center_lat, "lon": center_lon},
         color_continuous_scale="Plasma",
-        range_color=[-20, 50],
+        range_color=[min_temp, max_temp],
         hover_data=["Temp_Max", "Temp_Min", "Humidity", "Weather"]
     )
     
