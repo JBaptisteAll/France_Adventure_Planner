@@ -110,7 +110,7 @@ if not df_filtered.empty:
         center={"lat": center_lat, "lon": center_lon},
         color_continuous_scale="Plasma",
         range_color=[min_temp, max_temp],
-        hover_data=["Temp_Max", "Temp_Min", "Humidity", "Weather"]
+        hover_data=["Humidity", "Weather"]
     )
     
     st.plotly_chart(fig, use_container_width=True)
