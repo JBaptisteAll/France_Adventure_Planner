@@ -103,7 +103,7 @@ if not df_filtered.empty:
         lon="Longitude",
         hover_name="Ville",
         mapbox_style="open-street-map",
-        animation_frame="Date_Hour",
+        animation_frame="Date",
         z="Temp_Avg",
         zoom=6,  
         radius=7,
