@@ -28,7 +28,7 @@ def load_and_prepare_data():
     return df
 
 # Charger les données
-df = load_and_prepare_data()
+df_agg = load_and_prepare_data()
 
 # Exemple de treks
 treks = {
