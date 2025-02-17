@@ -77,7 +77,8 @@ fig = px.density_mapbox(
     zoom=3.5,
     radius=4,
     center={"lat": 46.603354, "lon": 1.888334},
-    color_continuous_scale="Plasma"
+    color_continuous_scale="Plasma",
+    range_color=[-20, 50]
 )
 
 

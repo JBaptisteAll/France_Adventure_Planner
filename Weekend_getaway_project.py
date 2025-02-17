@@ -22,12 +22,14 @@ api_key = os.getenv("API_KEY")
 # Liste des villes
 villes = [
     # Analyse Météo
-    "Paris",  "Lyon", "Toulouse",    "Nantes", "Strasbourg", "Bordeaux", "Lille", 
-    "Rennes", "Reims", "Saint-Étienne", "Toulon", "Dijon", "Angers", "Nîmes", 
-    "Villeurbanne", "Le Mans", "Clermont-Ferrand", "Brest", "Aix-en-Provence", 
-    "Amiens", "Limoges", "Annecy", "Perpignan", "Caen", "Metz", "Besançon", 
-    "Orléans", "Rouen", "Avignon", "Pau", "Poitiers", "Mulhouse", "Colmar", 
-    "Chambéry", "Lourdes", "Arles", "Carcassonne", "Albi", "Ajaccio",
+    "Paris"
+    #,  "Lyon", "Toulouse",    "Nantes", "Strasbourg", "Bordeaux", "Lille", 
+    #"Rennes", "Reims", "Saint-Étienne", "Toulon", "Dijon", "Angers", "Nîmes", 
+    #"Villeurbanne", "Le Mans", "Clermont-Ferrand", "Brest", "Aix-en-Provence", 
+    #"Amiens", "Limoges", "Annecy", "Perpignan", "Caen", "Metz", "Besançon", 
+    #"Orléans", "Rouen", "Avignon", "Pau", "Poitiers", "Mulhouse", "Colmar", 
+    #"Chambéry", "Lourdes", "Arles", "Carcassonne", "Albi", "Ajaccio",
+    
     #Alpes
     #Les Ecrins
     "Bourg d'Oisans", "Le Périer", "La Chapelle-en-Valgaudémar", "Vallouise",
