@@ -90,6 +90,7 @@ if not df_filtered.empty:
         radius=7,
         center={"lat": center_lat, "lon": center_lon},
         color_continuous_scale="Plasma",
+        range_color=[-20, 50],
         hover_data=["Temp_Max", "Temp_Min", "Humidity", "Weather"]
     )
     
