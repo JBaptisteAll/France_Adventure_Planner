@@ -44,23 +44,9 @@ st.markdown("""
 """)
 
 st.markdown("#### - Data collection flow")
+# Affiche l'image
+st.image("Assets/DataFlow.png", use_container_width=False, width=600)
 
-gif_url = "https://github.com/JBaptisteAll/France_Adventure_Planner/blob/main/Assets/DataFlow.gif"
-st.markdown(
-    f'<img src="{gif_url}" width="300">',
-    unsafe_allow_html=True
-)
-st.markdown("#### 01  ")
-st.image("https://github.com/JBaptisteAll/France_Adventure_Planner/blob/main/Assets/DataFlow.gif")
-
-st.markdown("#### 02  ")
-st.image("Assets\DataFlow.gif", use_container_width=False, width=600)
-
-st.markdown("#### 03  ")
-st.components.v1.html(
-    f'<img src="{gif_url}" width="300" style="display: block; margin: auto;">',
-    height=300
-)
 
 
 
