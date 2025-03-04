@@ -52,11 +52,11 @@ st.markdown("#### - Data collection flow")
 
 # Définition des chemins des fichiers
 file_paths = {
-    "jour1": "\Analyse_Bloc_6_CDSD\forecasts\weather_data_forecast_1day.csv",
-    "jour2": "\Analyse_Bloc_6_CDSD\forecasts\weather_data_forecast_2day.csv",
-    "jour3": "\Analyse_Bloc_6_CDSD\forecasts\weather_data_forecast_3day.csv",
-    "jour4": "\Analyse_Bloc_6_CDSD\forecasts\weather_data_forecast_4day.csv",
-    "jour5": "\Analyse_Bloc_6_CDSD\forecasts\weather_data_forecast_5day.csv",
+    "jour1": "Analyse_Bloc_6_CDSD\forecasts\weather_data_forecast_1day.csv",
+    "jour2": "Analyse_Bloc_6_CDSD\forecasts\weather_data_forecast_2day.csv",
+    "jour3": "Analyse_Bloc_6_CDSD\forecasts\weather_data_forecast_3day.csv",
+    "jour4": "Analyse_Bloc_6_CDSD\forecasts\weather_data_forecast_4day.csv",
+    "jour5": "Analyse_Bloc_6_CDSD\forecasts\weather_data_forecast_5day.csv",
 }
 
 # Charger chaque fichier en DataFrame
