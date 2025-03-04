@@ -2,7 +2,6 @@ import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
-import seaborn as sns
 import plotly.express as px
 
 st.set_page_config(page_title="Weather Analysis", page_icon="📊")
@@ -45,12 +44,6 @@ st.markdown("""
 """)
 
 st.markdown("#### - Data collection flow")
-
-
-
-
-
-
 
 
 st.markdown("# COMING SOON")
