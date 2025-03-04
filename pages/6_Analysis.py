@@ -1,14 +1,4 @@
 import streamlit as st
-
-st.markdown("# COMING SOON")
-st.write(
-    """This page will contain an analysis of the weather data that we have collected
-    from the various cities in France. We will be using the data to provide
-    accuracy scores for each city."""
-)
-
-
-import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
@@ -16,6 +6,7 @@ import seaborn as sns
 import plotly.express as px
 
 st.set_page_config(page_title="Weather Analysis", page_icon="📊")
+
 
 # Titre de la page
 st.markdown("""<h1 style='text-align: center; font-size: 7em;'>
@@ -95,3 +86,9 @@ all_data = pd.concat([df_base] + list(dfs.values()), axis=1)
 
 
 
+st.markdown("# COMING SOON")
+st.write(
+    """This page will contain an analysis of the weather data that we have collected
+    from the various cities in France. We will be using the data to provide
+    accuracy scores for each city."""
+)
