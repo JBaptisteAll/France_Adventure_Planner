@@ -34,7 +34,6 @@ st.write(
     was recorded over a two-month period from December 5, 2024, to February 7, 2025, 
     and was structured into 5 separate files, each corresponding to a different forecast 
     horizon:
-
     - **Jour 1** → Weather forecast for the next day
     - **Jour 2** → Weather forecast for the second day ahead
     - **Jour 3** → Weather forecast for the third day ahead
