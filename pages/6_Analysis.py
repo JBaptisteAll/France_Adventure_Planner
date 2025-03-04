@@ -45,6 +45,17 @@ st.markdown("""
 
 st.markdown("#### - Data collection flow")
 
+gif_url = "https://github.com/JBaptisteAll/France_Adventure_Planner/blob/main/Assets/DataFlow.gif"
+st.markdown(
+    f'<img src="{gif_url}" width="300">',
+    unsafe_allow_html=True
+)
+
+
+
+
+
+
 
 st.markdown("# COMING SOON")
 st.write(
