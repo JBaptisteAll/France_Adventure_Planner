@@ -28,23 +28,23 @@ st.write(
 )
 
 st.markdown("#### Explanation of the Data for This Analysis")
-st.write(
-    """To evaluate the reliability of weather forecasts across France, I collected 
-    meteorological data for 50 cities from a larger dataset of 250 locations. The data 
-    was recorded over a two-month period from December 5, 2024, to February 7, 2025, 
-    and was structured into 5 separate files, each corresponding to a different forecast 
-    horizon:
-    - **Jour 1** → Weather forecast for the next day
-    - **Jour 2** → Weather forecast for the second day ahead
-    - **Jour 3** → Weather forecast for the third day ahead
-    - **Jour 4** → Weather forecast for the fourth day ahead
-    - **Jour 5** → Weather forecast for the fifth day ahead
+st.write("""
+To evaluate the reliability of weather forecasts across France, I collected 
+meteorological data for 50 cities from a larger dataset of 250 locations. The data 
+was recorded over a two-month period from December 5, 2024, to February 7, 2025, 
+and was structured into 5 separate files, each corresponding to a different forecast 
+horizon:
+
+- **Jour 1** → Weather forecast for the next day
+- **Jour 2** → Weather forecast for the second day ahead
+- **Jour 3** → Weather forecast for the third day ahead
+- **Jour 4** → Weather forecast for the fourth day ahead
+- **Jour 5** → Weather forecast for the fifth day ahead
     
-    This segmentation allows for a detailed comparison of forecast accuracy over time,
-    helping to identify which locations have the most reliable weather predictions in 
-    France.
-"""
-)
+This segmentation allows for a detailed comparison of forecast accuracy over time,
+helping to identify which locations have the most reliable weather predictions in 
+France.
+""")
 
 st.markdown("""
     France Adventure Planner is more than just a weather-based trip planner. It is a fully 
