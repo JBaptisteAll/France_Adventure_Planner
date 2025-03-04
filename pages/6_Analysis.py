@@ -25,10 +25,10 @@ data for 50 cities from a larger dataset of 250 locations. The data was recorded
 a two-month period from December 5, 2024, to February 7, 2025, and was structured into 
 5 separate files, each corresponding to a different forecast horizon:
 - **Jour 1** → Weather forecast for the next day
-- **Jour 2** → Weather forecast for two days ahead
-- **Jour 3** → Weather forecast for three days ahead
-- **Jour 4** → Weather forecast for four days ahead
-- **Jour 5** → Weather forecast for five days ahead
+- **Jour 2** → Weather forecast for the second day ahead
+- **Jour 3** → Weather forecast for the third day ahead
+- **Jour 4** → Weather forecast for the fourth day ahead
+- **Jour 5** → Weather forecast for the fifth day ahead
 
 This segmentation allows for a detailed comparison of forecast accuracy over time, 
 helping to identify which locations have the most reliable weather predictions in France.
@@ -51,9 +51,13 @@ st.image("Assets/DataFlow.png", use_container_width=False, width=600)
 
 
 
-st.markdown("# COMING SOON")
+
+
+
+st.markdown("# 🚧 Page Under Construction 🚧")
 st.write(
-    """This page will contain an analysis of the weather data that we have collected
-    from the various cities in France. We will be using the data to provide
-    accuracy scores for each city."""
+    """I am currently working on analyzing the weather data collected from 
+    various cities across France. This section will soon be available with 
+    accuracy metrics and other valuable insights.  
+    Stay tuned! ⏳"""
 )
