@@ -92,8 +92,27 @@ for day in dfs:
 # Fusionner les fichiers sans les colonnes redondantes
 all_data = pd.concat([df_base] + list(dfs.values()), axis=1)
 
-st.write(all_data.head())
+# Définir les bornes de température
+min_temp = all_data["Temp_Avg_jour1"].min()
+max_temp = all_data["Temp_Avg_jour1"].max()
 
+fig = px.density_mapbox(
+    all_data,
+    lat="Latitude_jour1",
+    lon="Longitude_jour1",
+    z="Temp_Avg_jour1",  # Influence des données de Temp_Avg
+    mapbox_style="open-street-map",
+    animation_frame="Date_jour1",  # Animation basée sur la date
+    zoom=3.5,
+    radius=7,
+    color_continuous_scale="thermal",
+    center={"lat": 46.603354, "lon": 1.888334},
+    labels={"Temp_Avg_jour1": "Average temperature (°C)"},
+    range_color=[min_temp, max_temp]  # Échelle de couleur fixe
+)
+
+# Affichage
+st.plotly_chart(fig, use_container_width=True)
 
 
 
