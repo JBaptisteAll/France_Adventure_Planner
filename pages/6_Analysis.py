@@ -102,7 +102,6 @@ fig = px.density_mapbox(
     lon="Longitude_jour1",
     z="Temp_Avg_jour1",  # Influence des données de Temp_Avg
     mapbox_style="open-street-map",
-    animation_frame="Date_jour1",  # Animation basée sur la date
     zoom=3.5,
     radius=7,
     color_continuous_scale="thermal",
