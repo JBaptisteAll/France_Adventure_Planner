@@ -44,7 +44,7 @@ treks = {
                                                         "Saint-Christophe-en-Oisans", "Val-d'Isère", 
                                                         "Tignes", "Pralognan-la-Vanoise", "Termignon", 
                                                         "Modane", "Bonneval-sur-Arc", "Aussois", 
-                                                        "Lanslebourg-Mont-Cenis", "Bessans", "Beaufort", 
+                                                        "Lanslebourg-Mont-Cenis", "Bessans", #"Beaufort", 
                                                         "Arêches", "Les Saisies", "Hauteluce", 
                                                         "Villard-sur-Doron", "Queige", 
                                                         "Saint-Pierre-de-Chartreuse", "Grenoble", 

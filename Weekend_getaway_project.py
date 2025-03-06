@@ -22,14 +22,14 @@ api_key = os.getenv("API_KEY")
 # Liste des villes
 villes = [
     # Analyse Météo
-    "Paris"
+    "Paris",
     #,  "Lyon", "Toulouse",    "Nantes", "Strasbourg", "Bordeaux", "Lille", 
     #"Rennes", "Reims", "Saint-Étienne", "Toulon", "Dijon", "Angers", "Nîmes", 
     #"Villeurbanne", "Le Mans", "Clermont-Ferrand", "Brest", "Aix-en-Provence", 
     #"Amiens", "Limoges", "Annecy", "Perpignan", "Caen", "Metz", "Besançon", 
     #"Orléans", "Rouen", "Avignon", "Pau", "Poitiers", "Mulhouse", "Colmar", 
     #"Chambéry", "Lourdes", "Arles", "Carcassonne", "Albi", "Ajaccio",
-    
+                
     #Alpes
     #Les Ecrins
     "Bourg d'Oisans", "Le Périer", "La Chapelle-en-Valgaudémar", "Vallouise",
@@ -42,8 +42,8 @@ villes = [
     #Vanoise
     "Val-d'Isère", "Tignes", "Pralognan-la-Vanoise", "Termignon", "Modane", 
     "Bonneval-sur-Arc", "Aussois", "Lanslebourg-Mont-Cenis", "Bessans",
-    #Beaufortain
-    "Beaufort", "Arêches", "Les Saisies", "Hauteluce", "Villard-sur-Doron", 
+    #Beaufortain "Beaufort", 
+    "Arêches", "Les Saisies", "Hauteluce", "Villard-sur-Doron", 
     "Queige",
     #Chartreuse
     "Saint-Pierre-de-Chartreuse", "Grenoble", "Le Sappey-en-Chartreuse",
