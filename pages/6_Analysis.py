@@ -566,7 +566,7 @@ with col7:
 
 # Colonne de droite
 with col8:    
-    st.write("**Total Temperature**")
+    st.write("**Overall Average Temperature**")
     st.write(f"{worst_city_temp['Temp_Avg_jour1']:.2f}")
     st.write(f"{second_worst_city_temp['Temp_Avg_jour1']:.2f}")
     st.write(f"{third_worst_city_temp['Temp_Avg_jour1']:.2f}")
@@ -1494,7 +1494,7 @@ st.markdown("### 📊 Weather Trends Over Time")
 weather_score_daily = city_data.groupby("Date")["Weather_Score_jour1"].sum().reset_index()
 
 # 📊 Graphique du score météo
-fig_weather_score, ax = plt.subplots(figsize=(18, 8))
+fig_weather_score, ax = plt.subplots(figsize=(8, 5))
 sns.lineplot(x=weather_score_daily["Date"], 
              y=weather_score_daily["Weather_Score_jour1"], 
              marker="o", 
@@ -1504,12 +1504,11 @@ sns.lineplot(x=weather_score_daily["Date"],
 
 plt.xticks(rotation=90, fontsize=10, color="black")
 plt.yticks(fontsize=10, color="black")
-plt.title("Weather Score", fontsize=12, color="black", fontweight="bold")
-plt.xlabel("Date", fontsize=12, color="black", fontweight="bold")
+plt.title("Weather Score", fontsize=14, color="black", fontweight="bold")
 plt.ylabel("Weather Score", fontsize=12, color="black", fontweight="bold")
 
 # 📈 Graphique des températures
-fig_temp, ax = plt.subplots(figsize=(18, 8))
+fig_temp, ax = plt.subplots(figsize=(8, 5))
 sns.lineplot(
     x=city_data["Date"], 
     y=city_data["Temp_Avg_jour1"], 
@@ -1521,12 +1520,11 @@ sns.lineplot(
 
 plt.xticks(rotation=90, fontsize=10, color="black")
 plt.yticks(fontsize=10, color="black")
-plt.title("Temperature", fontsize=12, color="black", fontweight="bold")
-plt.xlabel("Date", fontsize=12, color="black", fontweight="bold")
+plt.title("Temperature", fontsize=14, color="black", fontweight="bold")
 plt.ylabel("Average Temperature (°C)", fontsize=12, color="black", fontweight="bold")
 
 # 📊 Graphique des précipitations
-fig_rain, ax = plt.subplots(figsize=(18, 8))
+fig_rain, ax = plt.subplots(figsize=(8, 5))
 sns.lineplot(x=city_data["Date"], 
              y=city_data["Rain_Probability_jour1"], 
              marker="o", 
@@ -1537,12 +1535,11 @@ sns.lineplot(x=city_data["Date"],
 
 plt.xticks(rotation=90, fontsize=10, color="black")
 plt.yticks(fontsize=10, color="black")
-plt.title("Rain Probability", fontsize=12, color="black", fontweight="bold")
-plt.xlabel("Date", fontsize=12, color="black", fontweight="bold")
+plt.title("Rain Probability", fontsize=14, color="black", fontweight="bold")
 plt.ylabel("Rain Probability (%)", fontsize=12, color="black", fontweight="bold")
 
 # 📉 Graphique de l'humidité
-fig_humidity, ax = plt.subplots(figsize=(18, 8))
+fig_humidity, ax = plt.subplots(figsize=(8, 5))
 sns.lineplot(x=city_data["Date"], 
              y=city_data["Humidity_jour1"], 
              marker="o", 
@@ -1553,8 +1550,7 @@ sns.lineplot(x=city_data["Date"],
 
 plt.xticks(rotation=90, fontsize=10, color="black")
 plt.yticks(fontsize=10, color="black")
-plt.title("Humidity", fontsize=12, color="black", fontweight="bold")
-plt.xlabel("Date", fontsize=12, color="black", fontweight="bold")
+plt.title("Humidity", fontsize=14, color="black", fontweight="bold")
 plt.ylabel("Humidity (%)", fontsize=12, color="black", fontweight="bold")
 
 # Affichage des graphiques en 2 colonnes
