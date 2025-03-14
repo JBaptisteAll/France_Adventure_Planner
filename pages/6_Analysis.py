@@ -43,9 +43,6 @@ st.write(all_data.head())
 villes_disponibles = all_data["Ville"].unique()
 villes_disponibles.sort()
 
-#Titre de la page
-st.set_page_config(page_title="Weather Analysis", page_icon="📊")
-
 # Sidebar 
 with st.sidebar:
     st.markdown("### 📖 Table of Contents")
