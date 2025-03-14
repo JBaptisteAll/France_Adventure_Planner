@@ -35,17 +35,33 @@ villes_disponibles.sort()
 
 # Sidebar 
 with st.sidebar:
+    st.markdown(
+        """
+        <style>
+        .sidebar-content {
+            font-size: 10px;  /* Réduit la taille du texte */
+        }
+        </style>
+        """,
+        unsafe_allow_html=True
+    )
+
+    st.markdown('<div class="sidebar-content">', unsafe_allow_html=True)
+
     st.markdown("### 📖 Table of Contents")
     st.markdown("""- [📄 Presentation](#Presentation)""", unsafe_allow_html=True)
     st.markdown("""- [🌤️ Weather Score](#weather-score)""", unsafe_allow_html=True)
     st.markdown("""- [🌡️ Temperature](#temperature)""", unsafe_allow_html=True)
     st.markdown("""- [🌧️ Rain Probability](#rain-probability)""", unsafe_allow_html=True)
     st.markdown("""- [🎯 Weather Accuracy](#accuracy)""", unsafe_allow_html=True)
+    
     selected_city = st.selectbox("📍 Select a City:", villes_disponibles)
 
     # Création d'un lien dynamique vers la section correspondante
-    city_anchor = selected_city.lower().replace(" ", "-")  # Gérer les espaces si besoin
+    city_anchor = selected_city.lower().replace(" ", "-")
     st.markdown(f"[🔍 View Analysis](#city-{city_anchor})", unsafe_allow_html=True)
+
+    st.markdown("</div>", unsafe_allow_html=True)  # Fermer le div pour appliquer le CSS
 
 
 
