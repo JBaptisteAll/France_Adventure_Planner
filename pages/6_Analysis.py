@@ -39,7 +39,7 @@ with st.sidebar:
         """
         <style>
         .sidebar-content {
-            font-size: 10px;  /* Réduit la taille du texte */
+            font-size: 8px;  /* Réduit la taille du texte */
         }
         </style>
         """,
