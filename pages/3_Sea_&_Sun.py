@@ -4,7 +4,7 @@ import plotly.express as px
 
 
 # Fonction pour charger les données
-@st.cache_data
+#@st.cache_data
 def load_and_prepare_data():
     df = pd.read_csv("final_results.csv")
     
