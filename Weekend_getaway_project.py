@@ -22,13 +22,12 @@ api_key = os.getenv("API_KEY")
 # Liste des villes
 villes = [
     # Analyse Météo
-    "Paris",
-    #,  "Lyon", "Toulouse",    "Nantes", "Strasbourg", "Bordeaux", "Lille", 
-    #"Rennes", "Reims", "Saint-Étienne", "Toulon", "Dijon", "Angers", "Nîmes", 
-    #"Villeurbanne", "Le Mans", "Clermont-Ferrand", "Brest", "Aix-en-Provence", 
-    #"Amiens", "Limoges", "Annecy", "Perpignan", "Caen", "Metz", "Besançon", 
-    #"Orléans", "Rouen", "Avignon", "Pau", "Poitiers", "Mulhouse", "Colmar", 
-    #"Chambéry", "Lourdes", "Arles", "Carcassonne", "Albi", "Ajaccio",
+    "Paris","Lyon", "Toulouse",    "Nantes", "Strasbourg", "Bordeaux", "Lille", 
+    "Rennes", "Reims", "Saint-Étienne", "Toulon", "Dijon", "Angers", "Nîmes", 
+    "Villeurbanne", "Le Mans", "Clermont-Ferrand", "Brest", "Aix-en-Provence", 
+    "Amiens", "Limoges", "Annecy", "Perpignan", "Caen", "Metz", "Besançon", 
+    "Orléans", "Rouen", "Avignon", "Pau", "Poitiers", "Mulhouse", "Colmar", 
+    "Chambéry", "Lourdes", "Arles", "Carcassonne", "Albi", "Ajaccio",
                 
     #Alpes
     #Les Ecrins
@@ -286,7 +285,7 @@ print(f"Les résultats finaux ont été enregistrés dans {output_file}.")
 df_meteo = pd.read_csv("final_results.csv")
 df_meteo["Date"] = pd.to_datetime(df_meteo["Date"])
 
-"""
+
 # Chemin de sauvegarde des fichiers forecasts
 output_folder = "forecasts"
 os.makedirs(output_folder, exist_ok=True)
@@ -337,7 +336,7 @@ def save_forecast_append(df, day_offset, output_folder, cities, columns):
 # Sauvegarder les 5 jours de prévision pour les 50 villes
 for day in range(1, 6):
     save_forecast_append(df_meteo, day, output_folder, cities_to_split, columns_to_save)
-"""
+
 # Sauvegarder final_results.csv
 df_meteo.to_csv("final_results.csv", index=False, encoding="utf-8")
 print("final_results.csv sauvegardé.")

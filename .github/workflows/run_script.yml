@@ -39,7 +39,7 @@ jobs:
           git config --global pull.rebase false
           git checkout main
           git pull origin main
-          git add final_results.csv
-          git commit -m "Auto update of final_results.csv with Actions" || echo "No changes to commit"
+          git add final_results.csv forecasts/  # Ajout de forecasts/
+          git commit -m "Auto update of final_results.csv & forecasts/ with Actions" || echo "No changes to commit"
           git push origin main
 
