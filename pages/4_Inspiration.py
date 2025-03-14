@@ -5,7 +5,7 @@ import random
 
 
 # Fonction pour charger et préparer les données
-@st.cache_data
+#@st.cache_data
 def load_data():
     return pd.read_csv("final_results.csv")
 
