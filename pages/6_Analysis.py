@@ -61,7 +61,7 @@ with st.sidebar:
     city_anchor = selected_city.lower().replace(" ", "-")
     st.markdown(f"[🔍 View Analysis](#city-{city_anchor})", unsafe_allow_html=True)
 
-    st.markdown("</div>", unsafe_allow_html=True)  # Fermer le div pour appliquer le CSS
+    #st.markdown("</div>", unsafe_allow_html=True)  # Fermer le div pour appliquer le CSS
 
 
 
