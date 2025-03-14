@@ -7,14 +7,6 @@ import seaborn as sns
 
 st.set_page_config(page_title="Weather Analysis", page_icon="📊")
 
-st.markdown("# 🚧 Page Under Construction 🚧")
-st.write(
-    """I am currently working on analyzing the weather data collected from 
-    various cities across France. This section will soon be available with 
-    accuracy metrics and other valuable insights.  
-    Stay tuned! ⏳"""
-)
-
 # Définition des chemins des fichiers
 file_paths = {
     "jour1": "Analyse_Bloc_6_CDSD/forecasts/weather_data_forecast_1day.csv",
@@ -35,8 +27,6 @@ for day in dfs:
     dfs[day] = dfs[day].drop(columns=columns_to_keep_once, errors="ignore").add_suffix(f"_{day}")
 # Fusionner les fichiers sans les colonnes redondantes
 all_data = pd.concat([df_base] + list(dfs.values()), axis=1)
-# Afficher les 5 premières lignes
-st.write(all_data.head())
 
 
 # Extraire la liste des villes uniques dans l'ordre alphabétique
@@ -51,21 +41,12 @@ with st.sidebar:
     st.markdown("""- [🌡️ Temperature](#temperature)""", unsafe_allow_html=True)
     st.markdown("""- [🌧️ Rain Probability](#rain-probability)""", unsafe_allow_html=True)
     st.markdown("""- [🎯 Weather Accuracy](#accuracy)""", unsafe_allow_html=True)
-    st.write("""---""")
     selected_city = st.selectbox("📍 Select a City:", villes_disponibles)
+
     # Création d'un lien dynamique vers la section correspondante
     city_anchor = selected_city.lower().replace(" ", "-")  # Gérer les espaces si besoin
     st.markdown(f"[🔍 View Analysis](#city-{city_anchor})", unsafe_allow_html=True)
 
-
-
-st.markdown("# 🚧 Page Under Construction 🚧")
-st.write(
-    """I am currently working on analyzing the weather data collected from 
-    various cities across France. This section will soon be available with 
-    accuracy metrics and other valuable insights.  
-    Stay tuned! ⏳"""
-)
 
 
 # Titre de la page
