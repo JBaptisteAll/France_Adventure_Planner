@@ -27,6 +27,15 @@ jobs:
           pip install --upgrade pip
           pip install scrapy python-dotenv
       
+      # Faire un git pull avant d'exécuter le script pour récupérer les fichiers existants
+      - name: Pull latest data
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+          git pull origin main  # Récupère les fichiers existants
+
       - name: Run script
         run: python Weekend_getaway_project.py # Script
 
