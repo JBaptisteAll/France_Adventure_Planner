@@ -8,7 +8,6 @@ import scrapy # type: ignore
 from scrapy.crawler import CrawlerProcess # type: ignore
 import time
 from dotenv import load_dotenv # type: ignore
-import os
 
 
 # Forcer SelectorEventLoop sur Windows
@@ -28,7 +27,15 @@ villes = [
     "Amiens", "Limoges", "Annecy", "Perpignan", "Caen", "Metz", "Besançon", 
     "Orléans", "Rouen", "Avignon", "Pau", "Poitiers", "Mulhouse", "Colmar", 
     "Chambéry", "Lourdes", "Arles", "Carcassonne", "Albi", "Ajaccio",
-                
+
+    # Liste des parcs et autres attractions
+    #"Disneyland Paris", "Parc Astérix", "Futuroscope", "Puy du Fou", 
+    #"Le Pal", "Nigloland", "Walibi Rhône-Alpes", "Walibi Sud-Ouest",
+    #"France Miniature", "ZooParc de Beauval", "Terra Botanica",
+    #"Le palais idéal du Facteur Cheval", "Château de Chambord",
+    #"Château de Versailles", "Château de Vaux-le-Vicomte", "Château de Chenonceau",
+
+    
     #Alpes
     #Les Ecrins
     "Bourg d'Oisans", "Le Périer", "La Chapelle-en-Valgaudémar", "Vallouise",
@@ -236,15 +243,24 @@ class BookingSpider(scrapy.Spider):
             yield scrapy.Request(url=url, callback=self.parse, meta={"city": ville})
 
     def parse(self, response):
-        hotels = response.css("div[data-testid='property-card']")[:5]
+        hotels = response.css("div[data-testid='property-card-container']")[:5]
         city = response.meta["city"]
         hotel_info = []
+
         for hotel in hotels:
-            hotel_info.append({
-                "hotel_name": hotel.css("div[data-testid='title']::text").get(),
-                "link": response.urljoin(hotel.css("a[data-testid='title-link']::attr(href)").get())
-            })
+            name = hotel.css("div[data-testid='title']::text").get()
+            link = hotel.css("a[data-testid='title-link']::attr(href)").get()
+            note = hotel.css("div[data-testid='review-score'] div::text").get()
+
+            if name and link:
+                hotel_info.append({
+                    "hotel_name": name.strip(),
+                    "link": response.urljoin(link.strip()),
+                    "note": note.strip() if note else "N/A"
+                })
+
         hotel_results.append({"city": city, "hotels": hotel_info})
+
 
 # Configurer et exécuter le processus Scrapy
 process = CrawlerProcess(settings={
@@ -267,6 +283,7 @@ for _, row in df_meteo.iterrows():
     for i, hotel in enumerate(hotels):
         combined_row[f"Hotel_{i+1}_Name"] = hotel.get("hotel_name", "N/A")
         combined_row[f"Hotel_{i+1}_Link"] = hotel.get("link", "N/A")
+        combined_row[f"Hotel_{i+1}_Note"] = hotel.get("note", "N/A")
     
     combined_row["Train"] = train_base_url.format(ville.replace(" ", "%20"))
     combined_results.append(combined_row)
