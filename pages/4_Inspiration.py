@@ -5,7 +5,6 @@ import random
 
 
 # Fonction pour charger et préparer les données
-#@st.cache_data
 def load_data():
     return pd.read_csv("final_results.csv")
 
@@ -60,10 +59,13 @@ if method == "Filter by Preferences":
         st.markdown("### Top Recommendations Based on Your Preferences")
 
         # liens cliquables pour l'hôtel
-        best_cities_per_day["Hotel"] = best_cities_per_day.apply(
-            lambda row: f"<a href='{row['Hotel_1_Link']}' target='_blank'>Book it!</a>",
-            axis=1
-        )
+        def safe_hotel_link(row):
+            if 'Hotel_1_Link' in row and pd.notna(row['Hotel_1_Link']) and row['Hotel_1_Link'] != 'N/A':
+                return f"<a href='{row['Hotel_1_Link']}' target='_blank'>Book it!</a>"
+            else:
+                return "No hotel available"
+
+        best_cities_per_day["Hotel"] = best_cities_per_day.apply(safe_hotel_link, axis=1)
 
         # liens cliquables pour les trains
         best_cities_per_day["Train"] = best_cities_per_day.apply(
@@ -99,14 +101,23 @@ if method == "Filter by Preferences":
 # Option 2 
 elif method == "City with Best Weather Score and Temperature":
     best_city = df.sort_values(by=["Weather_Score", "Temp_Avg"], ascending=False).iloc[0]
+
+    # Vérifier si le lien d'hôtel existe
+    hotel_link = (
+        best_city["Hotel_1_Link"]
+        if "Hotel_1_Link" in best_city and pd.notna(best_city["Hotel_1_Link"]) and best_city["Hotel_1_Link"] != "N/A"
+        else None
+    )
+
+    # Créer l'affichage avec ou sans le lien hôtel
     st.markdown(f"### Best Destination: **{best_city['Ville']}**")
     st.markdown(f"""
-        - **Date**: {best_city['Date']}
-        - **Average Temperature**: {best_city['Temp_Avg']}°C
-        - **Weather**: {best_city['Weather']}
-        - **Rain Probability**: {best_city['Rain_Probability']}%
-        - **Hotel**: [Book it!]({best_city['Hotel_1_Link']})
-        - **Train**: [Let's Go!]({best_city['Train']})
+    - **Date**: {best_city['Date']}
+    - **Average Temperature**: {best_city['Temp_Avg']}°C
+    - **Weather**: {best_city['Weather']}
+    - **Rain Probability**: {best_city['Rain_Probability']}%
+    - **Hotel**: {'[Book it!](' + hotel_link + ')' if hotel_link else 'No hotel available'}
+    - **Train**: [Let's Go!]({best_city['Train']})
     """)
 
     # Carte
@@ -132,10 +143,13 @@ elif method == "Random City":
     city_grouped_by_day = city_data.groupby("Date").first().reset_index()
 
     # liens cliquables pour l'hôtel
-    city_grouped_by_day["Hotel"] = city_grouped_by_day.apply(
-        lambda row: f"<a href='{row['Hotel_1_Link']}' target='_blank'>Book it!</a>",
-        axis=1
-    )
+    def safe_hotel_link(row):
+        if 'Hotel_1_Link' in row and pd.notna(row['Hotel_1_Link']) and row['Hotel_1_Link'] != 'N/A':
+            return f"<a href='{row['Hotel_1_Link']}' target='_blank'>Book it!</a>"
+        else:
+            return "No hotel available"
+
+        best_cities_per_day["Hotel"] = best_cities_per_day.apply(safe_hotel_link, axis=1)
 
     # liens cliquables pour les trains
     city_grouped_by_day["Train"] = city_grouped_by_day.apply(
