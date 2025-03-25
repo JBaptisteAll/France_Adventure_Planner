@@ -149,7 +149,7 @@ elif method == "Random City":
         else:
             return "No hotel available"
 
-        best_cities_per_day["Hotel"] = best_cities_per_day.apply(safe_hotel_link, axis=1)
+    city_grouped_by_day["Hotel"] = city_grouped_by_day.apply(safe_hotel_link, axis=1)
 
     # liens cliquables pour les trains
     city_grouped_by_day["Train"] = city_grouped_by_day.apply(
