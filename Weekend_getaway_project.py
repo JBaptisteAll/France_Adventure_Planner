@@ -9,7 +9,7 @@ from scrapy.crawler import CrawlerProcess # type: ignore
 import time
 from dotenv import load_dotenv # type: ignore
 
-
+# coucou
 # Forcer SelectorEventLoop sur Windows
 if asyncio.get_event_loop_policy().__class__.__name__ == 'WindowsProactorEventLoopPolicy':
     asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
