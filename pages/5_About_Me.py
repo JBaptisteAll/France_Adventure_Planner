@@ -70,6 +70,7 @@ data manipulation, visualization, and machine learning. The bootcamp not only
 refined my technical abilities but also strengthened my problem-solving and 
 analytical thinking through practical projects and teamwork.     
 
+---
 
 After completing the Data Analytics Bootcamp at Jedha Bootcamp, I was offered 
 the opportunity to stay on as a **Teacher Assistant**. In this role, I supported 
@@ -108,8 +109,8 @@ st.markdown("""
 st.markdown("### Key Projects")
 st.markdown("""
             
-- [**ClimAdvisor: Analyzing Forecast Reliability Across France**](https://github.com/JBaptisteAll/ClimAdvisor_Analyzing_Forecast_Reliability_Across_France): 
-            Welcome to ClimAdvisor, a data-driven project aimed at evaluating weather 
+- [**ClimAdvisor Analyzing Forecast Reliability Across France**](https://github.com/JBaptisteAll/ClimAdvisor_Analyzing_Forecast_Reliability_Across_France): 
+            A data-driven project aimed at evaluating weather 
             reliability across various French cities. This project focuses on 
             exploratory weather analysis and the accuracy of 5-day weather forecasts 
             using real-world data. It complements the France Adventure Planner project 
@@ -124,7 +125,7 @@ st.markdown("""
             **Technologies**: Excel, Power Query, Power BI.
 
 - [**Revenge of the Seat An SQL Database**](https://github.com/JBaptisteAll/Revenge-of-the-Seat-An-SQL-Database):
-            Revenge of the Seat is a realistic airline simulation database project 
+            A realistic airline simulation database project 
             designed to explore data modeling, SQL querying, and data analytics 
             in a complete end-to-end workflow. It contains real-world inspired data 
             on aircrafts, flights, passengers, bookings, airports, and airlines.
