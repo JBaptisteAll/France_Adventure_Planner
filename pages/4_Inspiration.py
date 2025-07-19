@@ -132,7 +132,7 @@ elif method == "City with Best Weather Score and Temperature":
     - **Date**: {best_city['Date']}
     - **Average Temperature**: {best_city['Temp_Avg']}°C
     - **Weather**: {best_city['Weather']}
-    - **Rain Probability**: {best_city['Rain_Probability'] * 100: .0}%
+    - **Rain Probability**: {best_city['Rain_Probability']}%
     - **Hotel**: {'[Book it!](' + hotel_link + ')' if hotel_link else 'No hotel available'}
     - **Train**: [Let's Go!]({best_city['Train']})
     """)
