@@ -68,9 +68,11 @@ I enrolled in an intensive Data Analytics Bootcamp at [Jedha](https://www.jedha.
 Throughout this program, I worked on real-world datasets, developing skills in 
 data manipulation, visualization, and machine learning. The bootcamp not only 
 refined my technical abilities but also strengthened my problem-solving and 
-analytical thinking through practical projects and teamwork.     
+analytical thinking through practical projects and teamwork.  
+""")
 
 st.markdown("### Teacher Assistant Experience")
+st.markdown("""
 After completing the Data Analytics Bootcamp at Jedha, I was honored to be 
 invited to stay on as a **Teacher Assistant**. In this role, I supported 
 new cohorts of students by:
