@@ -100,7 +100,24 @@ if method == "Filter by Preferences":
 
 # Option 2 
 elif method == "City with Best Weather Score and Temperature":
-    best_city = df.sort_values(by=["Weather_Score", "Temp_Avg"], ascending=False).iloc[0]
+    # Regrouper les données par Ville et Date
+    daily_city_data = (
+        df.groupby(["Ville", "Date"], as_index=False)
+        .agg({
+            "Temp_Avg": "mean",
+            "Weather_Score": "sum",
+            "Rain_Probability": "mean",
+            "Weather": lambda x: x.mode()[0],  # météo la plus fréquente
+            "Latitude": "first",
+            "Longitude": "first",
+            "Hotel_1_Link": "first",
+            "Train": "first"
+        })
+)
+    best_city = daily_city_data.sort_values(
+        by=["Weather_Score", "Temp_Avg", "Rain_Probability"], 
+        ascending=[False, False, True]  # DESC, DESC, ASC
+        ).iloc[0]
 
     # Vérifier si le lien d'hôtel existe
     hotel_link = (
@@ -115,14 +132,14 @@ elif method == "City with Best Weather Score and Temperature":
     - **Date**: {best_city['Date']}
     - **Average Temperature**: {best_city['Temp_Avg']}°C
     - **Weather**: {best_city['Weather']}
-    - **Rain Probability**: {best_city['Rain_Probability']}%
+    - **Rain Probability**: {best_city['Rain_Probability'] * 100: .0}%
     - **Hotel**: {'[Book it!](' + hotel_link + ')' if hotel_link else 'No hotel available'}
     - **Train**: [Let's Go!]({best_city['Train']})
     """)
 
     # Carte
     fig = px.scatter_mapbox(
-        df[df["Ville"] == best_city["Ville"]],
+        pd.DataFrame([best_city]),
         lat="Latitude",
         lon="Longitude",
         hover_name="Ville",
@@ -130,8 +147,8 @@ elif method == "City with Best Weather Score and Temperature":
         zoom=6,
     )
     # Agrandir les points
-    fig.update_traces(marker=dict(size=15))
-    fig.update_traces(marker=dict(color='blue'))
+    fig.update_traces(marker=dict(size=15, color='blue'))
+    #fig.update_traces(marker=dict(color='blue'))
     st.plotly_chart(fig, use_container_width=True)
 
 # Option 3
