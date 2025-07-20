@@ -36,6 +36,17 @@ jobs:
           git config --global user.email "actions@github.com"
           git pull origin main  # Récupère les fichiers existants
 
+      - name: Check if API_KEY is set
+        run: |
+          if [ -z "$API_KEY" ]; then
+            echo "❌ API_KEY is NOT available"
+            exit 1
+          else
+            echo "✅ API_KEY is available"
+          fi
+        env:
+          API_KEY: ${{ secrets.API_KEY }}
+      
       - name: Run script
         run: python Weekend_getaway_project.py # Script
 
