@@ -104,7 +104,7 @@ elif method == "City with Best Weather Score and Temperature":
     daily_city_data = (
         df.groupby(["Ville", "Date"], as_index=False)
         .agg({
-            "Temp_Avg": "mean",
+            "Temp_Avg": "max",
             "Weather_Score": "sum",
             "Rain_Probability": "mean",
             "Weather": lambda x: x.mode()[0],  # météo la plus fréquente
