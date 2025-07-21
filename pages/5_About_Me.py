@@ -115,27 +115,27 @@ st.markdown("""
             reliability across various French cities. This project focuses on 
             exploratory weather analysis and the accuracy of 5-day weather forecasts 
             using real-world data. It complements the France Adventure Planner project 
-            but operates as a standalone analytical deep dive.    
+            but operates as a standalone analytical deep dive.  
             **Technologies**: Python, Power BI, Power Query, DAX.
 
 - [**Behind The Stream**](https://github.com/JBaptisteAll/Behind_the_Stream): 
             Creation of an interactive Power BI dashboard designed for 
             film industry professionals (production companies, distributors) 
             to analyze trends in Netflix’s catalog (genres, movies vs. series, 
-            annual trends).
+            annual trends).  
             **Technologies**: Excel, Power Query, Power BI.
 
 - [**Revenge of the Seat An SQL Database**](https://github.com/JBaptisteAll/Revenge-of-the-Seat-An-SQL-Database):
             A realistic airline simulation database project 
             designed to explore data modeling, SQL querying, and data analytics 
             in a complete end-to-end workflow. It contains real-world inspired data 
-            on aircrafts, flights, passengers, bookings, airports, and airlines.
+            on aircrafts, flights, passengers, bookings, airports, and airlines.  
             **Technologies**: SQL, SQL Server Management Studio (SSMS).
 
 - [**France Adventure Planner**](https://github.com/JBaptisteAll/France_Adventure_Planner): 
             Development of a Streamlit application (View the App) that allows users 
             to plan trips based on the weather, personal interests (sea or mountains), 
-            with recommendations and links to hotels and trains.
+            with recommendations and links to hotels and trains.  
             **Technologies**: Python (Pandas, Scrapy, Plotly), Make.com, GitHub Actions.
 
 """)
