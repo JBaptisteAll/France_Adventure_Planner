@@ -115,8 +115,7 @@ st.markdown("""
             reliability across various French cities. This project focuses on 
             exploratory weather analysis and the accuracy of 5-day weather forecasts 
             using real-world data. It complements the France Adventure Planner project 
-            but operates as a standalone analytical deep dive.
-            
+            but operates as a standalone analytical deep dive.    
             **Technologies**: Python, Power BI, Power Query, DAX.
 
 - [**Behind The Stream**](https://github.com/JBaptisteAll/Behind_the_Stream): 
