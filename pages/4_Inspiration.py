@@ -100,12 +100,19 @@ if method == "Filter by Preferences":
 
 # Option 2 
 elif method == "City with Best Weather Score and Temperature":
+
+    df["Global_Score"] = (
+        df["Weather_Score"] * 0.5 +        # priorité météo
+        df["Temp_Avg"] * 10 * 0.3 -        # chaleur agréable
+        df["Rain_Probability"] * 100 * 0.2 # pénalité pluie
+    )
+    
     # Regrouper les données par Ville et Date
     daily_city_data = (
         df.groupby(["Ville", "Date"], as_index=False)
         .agg({
-            "Temp_Avg": "max",
-            "Weather_Score": "sum",
+            "Global_Score": "sum",
+            "Temp_Avg": "mean",
             "Rain_Probability": "mean",
             "Weather": lambda x: x.mode()[0],  # météo la plus fréquente
             "Latitude": "first",
@@ -115,9 +122,7 @@ elif method == "City with Best Weather Score and Temperature":
         })
 )
     best_city = daily_city_data.sort_values(
-        by=["Weather_Score", "Temp_Avg", "Rain_Probability"], 
-        ascending=[False, False, True]  # DESC, DESC, ASC
-        ).iloc[0]
+        by=["Global_Score"], ascending= False).iloc[0]
 
     # Vérifier si le lien d'hôtel existe
     hotel_link = (
