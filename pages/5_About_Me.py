@@ -117,7 +117,7 @@ st.markdown("""
             using real-world data. It complements the France Adventure Planner project 
             but operates as a standalone analytical deep dive.
             
-            - **Technologies**: Python, Power BI, Power Query, DAX.
+            **Technologies**: Python, Power BI, Power Query, DAX.
 
 - [**Behind The Stream**](https://github.com/JBaptisteAll/Behind_the_Stream): 
             Creation of an interactive Power BI dashboard designed for 
