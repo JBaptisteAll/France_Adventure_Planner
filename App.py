@@ -43,7 +43,7 @@ pg = st.navigation(
     {
         "Project": [Welcome_page, Mountains_page, Sea_page, Inspiration_page],
         "Analysis": [Weather_Analysis],
-        "Info": [about_page]
+        "Info": []
     }
 )
 
@@ -52,3 +52,14 @@ st.logo("Assets/CouldBe.png")
 
 
 pg.run()
+
+# Ajout du lien externe dans le sidebar ou en bas de page
+st.sidebar.markdown("---")
+st.sidebar.markdown(
+    "[🌐 Visit My Portfolio](https://jbaptisteall.github.io/JeanBaptisteAllombert/index.html) ",
+    unsafe_allow_html=True
+)
+st.sidebar.markdown(
+    "[🌐 Contact Me](https://jbaptisteall.github.io/JeanBaptisteAllombert/contact.html) ",
+    unsafe_allow_html=True
+)
