@@ -111,7 +111,7 @@ elif method == "City with Best Weather Score and Temperature":
     daily_city_data = (
         df.groupby(["Ville", "Date"], as_index=False)
         .agg({
-            "Global_Score": "sum",
+            "Weather_Score": "sum",
             "Temp_Avg": "mean",
             "Rain_Probability": "mean",
             "Weather": lambda x: x.mode()[0],  # météo la plus fréquente
@@ -122,7 +122,7 @@ elif method == "City with Best Weather Score and Temperature":
         })
 )
     best_city = daily_city_data.sort_values(
-        by=["Global_Score"], ascending= False).iloc[0]
+        by=["Weather_Score", "Temp_Avg"], ascending= [False, False]).iloc[0]
 
     # Vérifier si le lien d'hôtel existe
     hotel_link = (
