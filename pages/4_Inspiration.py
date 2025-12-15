@@ -20,7 +20,7 @@ method = st.radio(
     "How would you like to be inspired?",
     (
         "Filter by Preferences",
-        "City with Best Weather Score and Temperature",
+        #"City with Best Weather Score and Temperature",
         "Random City"
     )
 )
@@ -203,3 +203,4 @@ elif method == "Random City":
     fig.update_traces(marker=dict(size=15))
     fig.update_traces(marker=dict(color='blue'))
     st.plotly_chart(fig, use_container_width=True)
+
