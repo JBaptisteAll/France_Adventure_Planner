@@ -60,6 +60,6 @@ st.sidebar.markdown(
     unsafe_allow_html=True
 )
 st.sidebar.markdown(
-    "[🌐 Contact Me](https://jbaptisteall.github.io/JeanBaptisteAllombert/contact.html) ",
+    "[🌐 Contact Me](https://linktr.ee/jbcontactme) ",
     unsafe_allow_html=True
 )
