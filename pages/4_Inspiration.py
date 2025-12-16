@@ -203,3 +203,4 @@ elif method == "Random City":
     fig.update_traces(marker=dict(size=15))
     fig.update_traces(marker=dict(color='blue'))
     st.plotly_chart(fig, use_container_width=True)
+
