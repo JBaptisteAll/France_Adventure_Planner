@@ -1,7 +1,8 @@
-pandas
+pandas>=2.0.0
 Requests
-streamlit
+streamlit>=1.35.0
 plotly
 numpy
 matplotlib
 seaborn
+altair>=5.0.0
