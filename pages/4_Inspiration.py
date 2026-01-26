@@ -20,7 +20,7 @@ method = st.radio(
     "How would you like to be inspired?",
     (
         "Filter by Preferences",
-        #"City with Best Weather Score and Temperature",
+        "City with Best Weather Score and Temperature",
         "Random City"
     )
 )
