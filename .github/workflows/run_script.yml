@@ -23,10 +23,11 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install --upgrade pip
-          pip install -r requirements.txt
-          pip install playwright
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements.txt
+          python -m pip install playwright
           python -m playwright install chromium --with-deps
+          python -c "import playwright; print('✅ playwright', playwright.__version__)"
       
       # Faire un git pull avant d'exécuter le script pour récupérer les fichiers existants
       - name: Pull latest data
