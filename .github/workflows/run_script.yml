@@ -25,9 +25,8 @@ jobs:
         run: |
           pip install --upgrade pip
           pip install -r requirements.txt
-
-      - name: Install Playwright browsers
-        run: playwright install chromium --with-deps
+          pip install playwright
+          python -m playwright install chromium --with-deps
       
       # Faire un git pull avant d'exécuter le script pour récupérer les fichiers existants
       - name: Pull latest data
