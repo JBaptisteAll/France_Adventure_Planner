@@ -1,22 +1,16 @@
-import asyncio
 import os
-import logging
 import requests
 import pandas as pd
 from datetime import datetime, timedelta
-import scrapy # type: ignore
-from scrapy.crawler import CrawlerProcess # type: ignore
+from playwright.sync_api import sync_playwright # type: ignore
 import time
 from dotenv import load_dotenv # type: ignore
-
-# coucou
-# Forcer SelectorEventLoop sur Windows
-if asyncio.get_event_loop_policy().__class__.__name__ == 'WindowsProactorEventLoopPolicy':
-    asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
 
 # API Key OpenWeatherMap
 load_dotenv()
 api_key = os.getenv("API_KEY")
+if not api_key:
+    raise EnvironmentError("API_KEY manquante — vérifie ton fichier .env ou la variable d'environnement.")
 
 # Liste des villes
 villes = [
@@ -189,15 +183,21 @@ for ville in villes:
     headers = {"User-Agent": "NotNecessary"}
     r = requests.get(nominatim_url, params=params, headers=headers)
 
-    if r.status_code == 200:
+    if r.status_code != 200:
+        print(f"[Nominatim] Erreur {r.status_code} pour : {ville}")
+    else:
         data = r.json()
-        if data:
+        if not data:
+            print(f"[Nominatim] Aucune coordonnée trouvée pour : {ville}")
+        else:
             lat, lon = data[0]["lat"], data[0]["lon"]
             weather_url = f"https://api.openweathermap.org/data/2.5/forecast"
             weather_params = {"lat": lat, "lon": lon, "units": "metric", "appid": api_key}
             weather_r = requests.get(weather_url, params=weather_params)
 
-            if weather_r.status_code == 200:
+            if weather_r.status_code != 200:
+                print(f"[OWM] Erreur {weather_r.status_code} pour {ville} : {weather_r.json().get('message', '')}")
+            else:
                 weather_data = weather_r.json()
                 for day in weather_data['list']:
                     date_hour = pd.to_datetime(day["dt"],unit="s")
@@ -217,6 +217,10 @@ for ville in villes:
     # Attente pour respecter les limites des API
     time.sleep(1)
 
+print(f"\n✅ Météo collectée : {len(meteo_resultats)} lignes pour {len(set(r['Ville'] for r in meteo_resultats))} villes.")
+if not meteo_resultats:
+    raise RuntimeError("Aucune donnée météo collectée — vérifie les erreurs ci-dessus.")
+
 # Convertir les résultats météo en DataFrame
 df_meteo = pd.DataFrame(meteo_resultats)
 df_meteo["Weather_Score"] = df_meteo["Weather"].map(notations)
@@ -231,44 +235,62 @@ df_meteo["Date"] = pd.to_datetime(df_meteo["Date"])
 
 # SCRAPING
 
-# Liste pour les hôtels
-hotel_results = []
+# SCRAPING avec Playwright (remplace Scrapy, contourne le WAF et le rendu JS de Booking.com)
 
-class BookingSpider(scrapy.Spider):
-    name = "booking_spider"
+def scrape_hotels(villes):
+    hotel_results = []
+    with sync_playwright() as p:
+        browser = p.chromium.launch(headless=True)
+        context = browser.new_context(
+            user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
+            viewport={"width": 1280, "height": 720},
+            locale="fr-FR",
+        )
+        page = context.new_page()
 
-    def start_requests(self):
         for ville in villes:
             url = f"https://www.booking.com/searchresults.html?ss={ville.replace(' ', '+')}"
-            yield scrapy.Request(url=url, callback=self.parse, meta={"city": ville})
+            hotel_info = []
+            try:
+                page.goto(url, wait_until="domcontentloaded", timeout=30000)
 
-    def parse(self, response):
-        hotels = response.css("div[data-testid='property-card-container']")[:5]
-        city = response.meta["city"]
-        hotel_info = []
+                # Accepter les cookies si la bannière apparaît
+                try:
+                    btn = page.locator("button#onetrust-accept-btn-handler")
+                    if btn.is_visible(timeout=3000):
+                        btn.click()
+                        page.wait_for_timeout(1000)
+                except Exception:
+                    pass
 
-        for hotel in hotels:
-            name = hotel.css("div[data-testid='title']::text").get()
-            link = hotel.css("a[data-testid='title-link']::attr(href)").get()
-            note = hotel.css("div[data-testid='review-score'] div::text").get()
+                # Attendre les cartes hôtels
+                page.wait_for_selector("[data-testid='property-card']", timeout=12000)
+                cards = page.locator("[data-testid='property-card']").all()[:5]
 
-            if name and link:
-                hotel_info.append({
-                    "hotel_name": name.strip(),
-                    "link": response.urljoin(link.strip()),
-                    "note": note.strip() if note else "N/A"
-                })
+                for card in cards:
+                    name_el = card.locator("[data-testid='title']")
+                    link_el = card.locator("a[data-testid='title-link']")
+                    name = name_el.inner_text() if name_el.count() > 0 else None
+                    link = link_el.get_attribute("href") if link_el.count() > 0 else None
+                    if name and link:
+                        if not link.startswith("http"):
+                            link = "https://www.booking.com" + link
+                        hotel_info.append({
+                            "hotel_name": name.strip(),
+                            "link": link.strip(),
+                            "note": "N/A",
+                        })
 
-        hotel_results.append({"city": city, "hotels": hotel_info})
+            except Exception as e:
+                print(f"Erreur scraping {ville}: {e}")
 
+            hotel_results.append({"city": ville, "hotels": hotel_info})
+            time.sleep(1.5)
 
-# Configurer et exécuter le processus Scrapy
-process = CrawlerProcess(settings={
-    'USER_AGENT': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
-    'LOG_LEVEL': logging.INFO,
-})
-process.crawl(BookingSpider)
-process.start(install_signal_handlers=False)
+        browser.close()
+    return hotel_results
+
+hotel_results = scrape_hotels(villes)
 
 # Intégrer les résultats météo et hôtels
 combined_results = []
