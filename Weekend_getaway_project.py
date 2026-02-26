@@ -9,8 +9,6 @@ from dotenv import load_dotenv # type: ignore
 # API Key OpenWeatherMap
 load_dotenv()
 api_key = os.getenv("API_KEY")
-if not api_key:
-    raise EnvironmentError("API_KEY manquante — vérifie ton fichier .env ou la variable d'environnement.")
 
 # Liste des villes
 villes = [
