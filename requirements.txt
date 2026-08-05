@@ -1,6 +1,7 @@
 pandas>=2.0.0
 Requests
 streamlit>=1.35.0
+starlette<1.4.0
 plotly
 numpy
 matplotlib
