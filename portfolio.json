@@ -1,0 +1,29 @@
+{
+  "id": "p_adventure_planner",
+  "order": 140,
+  "label": "ADVENTURE_PLANNER",
+  "kanji": "山",
+  "year": "2025",
+  "title_fr": "France Adventure Planner",
+  "title_en": "France Adventure Planner",
+  "summary_fr": "Application Streamlit qui aide à choisir une destination de week-end en France selon les prévisions météo, avec suggestions d'hôtels, alimentée chaque nuit par GitHub Actions.",
+  "summary_en": "Streamlit app that helps pick a weekend destination in France based on weather forecasts, with hotel suggestions, refreshed every night by GitHub Actions.",
+  "body_fr": "Au départ, une simple collecte de données météo. En accumulant les relevés, j'ai vu de quoi en faire un outil utile : aider à trouver la meilleure destination de week-end au départ de Paris, à la montagne comme à la mer.\n\nChaque nuit, **GitHub Actions** lance la collecte : prévisions via l'API OpenWeatherMap, hôtels récupérés sur Booking avec **Scrapy**, puis un score météo maison classe les destinations. L'application **Streamlit** affiche le tout avec des cartes Plotly.\n\nLe pipeline tourne sans aucune intervention manuelle, et ses données alimentent aussi l'analyse ClimAdvisor.",
+  "body_en": "It started as a simple weather data collection. As the records piled up, I saw how to turn them into something useful: helping find the best weekend destination from Paris, in the mountains or by the sea.\n\nEvery night, **GitHub Actions** runs the collection: forecasts from the OpenWeatherMap API, hotels scraped from Booking with **Scrapy**, then a custom weather score ranks the destinations. The **Streamlit** app displays it all with Plotly maps.\n\nThe pipeline runs with no manual intervention, and its data also feeds the ClimAdvisor analysis.",
+  "metrics": [
+    {
+      "label": "collecte",
+      "value": "22h UTC"
+    },
+    {
+      "label": "hôtels / ville",
+      "value": "5"
+    },
+    {
+      "label": "orchestration",
+      "value": "GH Actions"
+    }
+  ],
+  "mermaid": "flowchart LR\n  GA[GitHub Actions] --> P[Scripts Python]\n  OWM[OpenWeatherMap] --> P\n  SCR[Scrapy Booking] --> P\n  P --> CSV[Fichier CSV]\n  CSV --> ST[App Streamlit]",
+  "bot_description": "Application Streamlit qui recommande des destinations de week-end en France selon la météo, avec un score météo maison et des suggestions d'hôtels. GitHub Actions collecte chaque nuit les prévisions OpenWeatherMap et les hôtels via Scrapy, sans intervention manuelle."
+}
